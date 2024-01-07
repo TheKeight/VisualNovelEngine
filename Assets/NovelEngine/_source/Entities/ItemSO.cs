@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using VisualNovel.Commands;
 using VisualNovel.Utility;
 
 namespace VisualNovel.Entities

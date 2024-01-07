@@ -13,6 +13,14 @@ namespace VisualNovel.Utility
         [SerializeField] private SerializedDictionary<TKey, TValue> _serializedDictionary;
 
 
+        public SerializedDictionaryWithDefaultValue(TValue defaultValue,
+            SerializedDictionary<TKey, TValue> serializedDictionary)
+        {
+            _defaultValue = defaultValue;
+            _serializedDictionary = serializedDictionary;
+        }
+
+
 #if UNITY_EDITOR
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void AssertState()

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace VisualNovel.Utility
@@ -8,7 +9,7 @@ namespace VisualNovel.Utility
     public sealed class SerializedDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, TValue>
     {
         [System.Serializable]
-        private struct Bucket
+        public struct Bucket
         {
             [SerializeField] private TKey _key;
             [SerializeField] private TValue _value;
@@ -23,6 +24,15 @@ namespace VisualNovel.Utility
 
         [SerializeField] private Bucket[] _buckets;
 
+        private IReadOnlyDictionary<TKey, TValue> _dict = null;
+
+
+        public SerializedDictionary(IEnumerable<Bucket> buckets)
+        {
+            _buckets = buckets.ToArray();
+        }
+
+
         public TValue this[TKey key] => Dictionary[key];
 
         public IEnumerable<TKey> Keys => Dictionary.Keys;
@@ -30,8 +40,6 @@ namespace VisualNovel.Utility
         public IEnumerable<TValue> Values => Dictionary.Values;
 
         public int Count => Dictionary.Count;
-
-        private IReadOnlyDictionary<TKey, TValue> _dict = null;
 
 
         private IReadOnlyDictionary<TKey, TValue> Dictionary

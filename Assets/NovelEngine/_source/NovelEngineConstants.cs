@@ -1,4 +1,4 @@
-﻿namespace VisualNovel.Commands
+﻿namespace VisualNovel
 {
     public static class NovelEngineConstants
     {
