@@ -31,7 +31,6 @@ namespace VisualNovel.Utility
 
     public class RequiredAttribute : PropertyAttribute
     {
-        // Может быть пустым, используется только для маркировки свойства
     }
 
 }

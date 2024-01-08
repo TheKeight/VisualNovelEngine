@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace VisualNovel.Utility
 {
+
     [System.Serializable]
     public sealed class SerializedDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, TValue>
     {

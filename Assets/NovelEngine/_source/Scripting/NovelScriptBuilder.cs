@@ -5,20 +5,18 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using VisualNovel.Commands;
 using VisualNovel.Entities;
+using VisualNovel.Scripting.CommandBuilders;
+using VisualNovel.Scripting.EntityBuilders;
+using VisualNovel.Utility;
 
 namespace VisualNovel.Scripting
 {
-    public sealed class ScriptBuilder : IScriptBuilder
+    public sealed class NovelScriptBuilder : IScriptBuilder
     {
-        private readonly Dictionary<string, List<CommandSO>> _storyLines = new();
-        private List<CommandSO> _initialStoryLine;
-        private List<CommandSO> _currentStoryLine;
+        private readonly Dictionary<string, StoryLineBuilder> _storyLines = new();
+        private StoryLineBuilder _initialStoryLine;
+        private StoryLineBuilder _currentStoryLine;
 
-
-        public void Build(out StoryLineSO[] storyLines, out int initialStoryLineIndex)
-        {
-            throw new NotImplementedException();
-        }
 
         public IScriptBuilder SetStartLabel(string labelName)
         {
@@ -53,6 +51,9 @@ namespace VisualNovel.Scripting
             AddCommand(SayCommand.Create(character, text));
             return this;
         }
+
+        public IScriptBuilder Say(CharacterSO character, params string[] texts)
+            => Say(character, (IEnumerable<string>)texts);
 
         public IScriptBuilder Say(CharacterSO character, IEnumerable<string> texts)
         {
@@ -145,22 +146,72 @@ namespace VisualNovel.Scripting
 
         public IScriptBuilder Jump(string labelName)
         {
-            throw new NotImplementedException();
-            AddCommand(JumpToStoryLineCommand.Create(null));
+            var storyLineBuilder = GetOrCreateStoryLineBuilder(labelName);
+            IBuilder<JumpToStoryLineCommand> jumpCommandBuilder = new JumpToStoryLineCommandBuilder(storyLineBuilder);
+            AddCommand(jumpCommandBuilder);
 
             return this;
+        }
+
+        public IScriptBuilder ShowSelector(string title, params SelectorVariantBuilder[] variants)
+        {
+            return ShowSelector(title, (IEnumerable<SelectorVariantBuilder>)variants);
+        }
+
+        public IScriptBuilder ShowSelector(string title, IEnumerable<SelectorVariantBuilder> variants)
+        {
+            var cmdBuilder = new ShowSelectorCommandBuilder()
+            {
+                Title = title,
+                Variants = variants.ToList()
+            };
+
+            AddCommand(cmdBuilder);
+            return this;
+        }
+
+        public IBuilder<StoryLineSO> GetLabel(string labelName)
+        {
+            return GetOrCreateStoryLineBuilder(labelName);
+        }
+
+        public NovelScriptData Build()
+        {
+            var data = new NovelScriptData();
+            StoryLineBuilder[] slBuilders = _storyLines.Values.ToArray();
+            data.InitialStoryLineIndex = Array.IndexOf(slBuilders, _initialStoryLine);
+            data.StoryLines = Array.ConvertAll(slBuilders, builder => builder.Build());
+            return data;
+        }
+
+        private StoryLineBuilder GetOrCreateStoryLineBuilder(string labelName)
+        {
+            if (!_storyLines.TryGetValue(labelName, out var storyLineBuilder))
+            {
+                storyLineBuilder = new StoryLineBuilder();
+                _storyLines[labelName] = storyLineBuilder;
+            }
+
+            return storyLineBuilder;
         }
 
         private void AddCommand(CommandSO command)
         {
             AssertCurrentStoryLineIsReady();
-            _currentStoryLine.Add(command);
+            _currentStoryLine.AddCommand(command);
+        }
+
+        private void AddCommand<TCmd>(IBuilder<TCmd> commandBuilder)
+            where TCmd : CommandSO
+        {
+            AssertCurrentStoryLineIsReady();
+            _currentStoryLine.AddCommand(commandBuilder);
         }
 
         private void AddCommands(IEnumerable<CommandSO> commands)
         {
             AssertCurrentStoryLineIsReady();
-            _currentStoryLine.AddRange(commands);
+            _currentStoryLine.AddCommands(commands);
         }
 
         private void AssertCurrentStoryLineIsReady()
