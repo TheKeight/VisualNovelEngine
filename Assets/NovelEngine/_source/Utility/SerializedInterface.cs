@@ -3,7 +3,7 @@
 namespace VisualNovel.Utility
 {
     [System.Serializable]
-    public sealed class SerializedInterface<T>
+    public sealed class SerializedInterface<T> : IItemProvider<T>
         where T : class
     {
         [SerializeField] private UnityEngine.Object _rawObject;
