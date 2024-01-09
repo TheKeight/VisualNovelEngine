@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using VisualNovel.Commands;
 using VisualNovel.CommandSystem;
@@ -55,6 +56,11 @@ namespace VisualNovel.Engine
         {
             _storyLine = storyLine;
             _currentCommandIndex = commandIndex;
+        }
+
+        public void InsertCommands(IEnumerable<CommandSO> commands)
+        {
+
         }
 
         private void ChangeMode(NovelPlayMode value)

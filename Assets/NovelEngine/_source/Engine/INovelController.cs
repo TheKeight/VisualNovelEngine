@@ -1,4 +1,6 @@
-﻿using VisualNovel.Entities;
+﻿using System.Collections.Generic;
+using VisualNovel.Commands;
+using VisualNovel.Entities;
 
 namespace VisualNovel.Engine
 {
@@ -10,6 +12,7 @@ namespace VisualNovel.Engine
 
         void SetStoryLine(StoryLineSO storyLine);
         void SetStoryLine(StoryLineSO storyLine, int commandIndex);
+        void InsertCommands(IEnumerable<CommandSO> commands);
     }
 
 

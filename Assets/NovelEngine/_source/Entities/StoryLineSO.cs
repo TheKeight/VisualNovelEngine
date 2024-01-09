@@ -5,8 +5,9 @@ using VisualNovel.Commands;
 
 namespace VisualNovel.Entities
 {
+
     [CreateAssetMenu(menuName = NovelEngineConstants.Entities + "StoryLine")]
-    public sealed class StoryLineSO : ScriptableObject
+    public sealed class StoryLineSO : ScriptableObject, IStoryLine
     {
         [SerializeField] private CommandSO[] _commands;
 
