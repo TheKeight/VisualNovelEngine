@@ -2,7 +2,7 @@
 
 namespace VisualNovel.Entities
 {
-    [CreateAssetMenu(menuName = NovelEngineConstants.Entities + "Screen Position")]
+    [CreateAssetMenu(menuName = NovelEngineConstants.Entities + "Scene Position")]
     public sealed class ScenePositionSO : ScriptableObject
     {
         [SerializeField, Range(0f, 1f)] private float _positionX;

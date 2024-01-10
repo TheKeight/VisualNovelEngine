@@ -7,5 +7,8 @@ namespace VisualNovel.Client.UX
     {
         public abstract TEntityReference Reference { get; }
         public abstract AppearanceKeySO AppearanceKey { get; set; }
+
+
+        public abstract void Init(TEntityReference reference, AppearanceKeySO appearanceKey);
     }
 }

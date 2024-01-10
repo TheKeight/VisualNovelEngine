@@ -4,10 +4,11 @@ using VisualNovel.Utility;
 
 namespace VisualNovel.Client.Utility
 {
+    [System.Serializable]
     public sealed class GameObjectsProvider<TKey, TValue> : IGameObjectsProvider<TKey, TValue>
         where TValue : UnityEngine.Object
     {
-        [SerializeField] private SerializedDictionary<TKey, TValue> _dict;
+        [SerializeField] private SerializedDictionaryWithDefaultValue<TKey, TValue> _dict;
 
 
         public TValue GetPrefab(TKey key) => _dict[key];

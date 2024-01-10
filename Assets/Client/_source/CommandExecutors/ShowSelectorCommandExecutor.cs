@@ -6,7 +6,7 @@ namespace VisualNovel.Client.CommandExecutors
 {
     public sealed class ShowSelectorCommandExecutor : CommandExecutorComponent<ShowSelectorCommand>
     {
-        [SerializeField] private SelectionManager _selectionManager;
+        [SerializeField] private SelectorUI _selectionManager;
 
 
         public override void Execute(ShowSelectorCommand command)

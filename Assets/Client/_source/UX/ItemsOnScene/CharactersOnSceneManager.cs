@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using VisualNovel.Entities;
 
@@ -16,7 +17,7 @@ namespace VisualNovel.Client.UX
         {
             if (!_charactersOnScene.TryGetValue(character, out var characterOnScene))
             {
-                characterOnScene = _characterViewModelsProvider.RentInstance(character);
+                characterOnScene = RentCharacterOnSceneInstance(character);
                 _charactersOnScene[character] = characterOnScene;
             }
 
@@ -29,7 +30,7 @@ namespace VisualNovel.Client.UX
             if (!_charactersOnScene.TryGetValue(character, out var characterOnScene))
                 return;
 
-            _characterViewModelsProvider.ReturnInstance(characterOnScene);
+            ReturnCharacterOnSceneInstance(characterOnScene);
         }
 
         public void ChangeAppearance(CharacterSO character, AppearanceKeySO appearanceKey)
@@ -61,5 +62,16 @@ namespace VisualNovel.Client.UX
             throw new System.NotImplementedException();
         }
 
+        private CharacterOnScene RentCharacterOnSceneInstance(CharacterSO character)
+        {
+            var instance = _characterViewModelsProvider.RentInstance(character);
+            instance.Init(character, null);
+            return instance;
+        }
+
+        private void ReturnCharacterOnSceneInstance(CharacterOnScene characterOnScene)
+        {
+            _characterViewModelsProvider.ReturnInstance(characterOnScene);
+        }
     }
 }

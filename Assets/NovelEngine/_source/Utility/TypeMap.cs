@@ -22,6 +22,8 @@ namespace VisualNovel.Utility
         }
 
 
+        [SerializeField] private bool _useDefault = true;
+        [SerializeField] private TOutput _defaultValue;
         [SerializeField] private Slot[] _slots;
 
         private IReadOnlyDictionary<System.Type, TOutput> _dict = null;
@@ -36,24 +38,44 @@ namespace VisualNovel.Utility
             }
         }
 
-
-        public bool ContainsKey(Type key)
+        public TOutput this[Type key]
         {
-            return Dictionary.ContainsKey(key);
-        }
+            get
+            {
+                if (!_useDefault)
+                    return Dictionary[key];
 
-        public bool TryGetValue(Type key, out TOutput value)
-        {
-            return Dictionary.TryGetValue(key, out value);
+                _ = TryGetValue(key, out var value);
+                return value;
+            }
         }
-
-        public TOutput this[Type key] => Dictionary[key];
 
         public IEnumerable<Type> Keys => Dictionary.Keys;
 
         public IEnumerable<TOutput> Values => Dictionary.Values;
 
         public int Count => Dictionary.Count;
+
+
+        public bool ContainsKey(Type key)
+        {
+            if (_useDefault)
+                return true;
+
+            return Dictionary.ContainsKey(key);
+        }
+
+        public bool TryGetValue(Type key, out TOutput value)
+        {
+            if (Dictionary.TryGetValue(key, out value))
+                return true;
+
+            if (!_useDefault)
+                return false;
+
+            value = _defaultValue;
+            return true;
+        }
 
         public IEnumerator<KeyValuePair<Type, TOutput>> GetEnumerator()
         {
@@ -76,5 +98,5 @@ namespace VisualNovel.Utility
 
             return dict;
         }
-    } 
+    }
 }

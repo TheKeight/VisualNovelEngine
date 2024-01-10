@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31d0f8d1418f91842bf1db69afe90979, type: 3}
+  m_Name: Character View Models Provider
+  m_EditorClassIdentifier: 
+  _provider:
+    _dict:
+      _defaultValue: {fileID: 3167567712096929347, guid: 7f8149801b48cab43ab6664f26751376, type: 3}
+      _serializedDictionary:
+        _buckets: []

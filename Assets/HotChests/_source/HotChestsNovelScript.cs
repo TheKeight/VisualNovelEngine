@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using VisualNovel.Scripting;
-using VisualNovel.Utility;
-
+using VisualNovel.Utility.NovelScripts;
 using static VisualNovel.HotChests.FastAccess;
 
 namespace VisualNovel.HotChests
 {
-    public sealed class HotChestsNovelScript : MonoBehaviour, IBuilder<NovelScriptData>
+    [CreateAssetMenu(menuName = "Visual Novel/HotChests/Test Script")]
+    public sealed class HotChestsNovelScript : NovelScriptSO
     {
-        public NovelScriptData Build()
+        public override NovelScriptData Build()
         {
             const string StartLabel = "Start";
             const string GoToKitchenLabel = "Go to kitchen";

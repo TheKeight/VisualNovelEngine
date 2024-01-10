@@ -21,6 +21,15 @@ namespace VisualNovel.Utility
         }
 
 
+        public TValue this[TKey key] => GetValueOrDefault(key);
+
+        public IEnumerable<TKey> Keys => _serializedDictionary.Keys;
+
+        public IEnumerable<TValue> Values => _serializedDictionary.Values;
+
+        public int Count => _serializedDictionary.Count;
+
+
 #if UNITY_EDITOR
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void AssertState()
@@ -44,21 +53,14 @@ namespace VisualNovel.Utility
 
         public bool ContainsKey(TKey key)
         {
-            return _serializedDictionary.ContainsKey(key);
+            return true;
         }
 
         public bool TryGetValue(TKey key, out TValue value)
         {
-            return _serializedDictionary.TryGetValue(key, out value);
+            value = GetValueOrDefault(key);
+            return true;
         }
-
-        public TValue this[TKey key] => ((IReadOnlyDictionary<TKey, TValue>)_serializedDictionary)[key];
-
-        public IEnumerable<TKey> Keys => _serializedDictionary.Keys;
-
-        public IEnumerable<TValue> Values => _serializedDictionary.Values;
-
-        public int Count => _serializedDictionary.Count;
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {

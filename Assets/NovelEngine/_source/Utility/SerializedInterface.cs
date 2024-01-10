@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using VisualNovel.CommandSystem;
 
 namespace VisualNovel.Utility
 {
