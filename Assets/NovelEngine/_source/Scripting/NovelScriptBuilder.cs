@@ -28,13 +28,7 @@ namespace VisualNovel.Scripting
         public IScriptBuilder BeginLabel(string labelName)
         {
             Assert.IsNull(_currentStoryLine);
-
-            if (!_storyLines.TryGetValue(labelName, out _currentStoryLine))
-            {
-                _currentStoryLine = new();
-                _storyLines[labelName] = _currentStoryLine;
-            }
-
+            _currentStoryLine = GetOrCreateStoryLineBuilder(labelName);
             _initialStoryLine ??= _currentStoryLine;
             return this;
         }

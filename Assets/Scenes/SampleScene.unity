@@ -2536,7 +2536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _novelController: {fileID: 2135523612}
-  _novelScript: {fileID: 11400000, guid: 407de8a64e588994983646c322c31763, type: 2}
+  _novelScript: {fileID: 11400000, guid: 19f165948dd0cbe41971a311bdb3703b, type: 2}
 --- !u!4 &1824311712
 Transform:
   m_ObjectHideFlags: 0

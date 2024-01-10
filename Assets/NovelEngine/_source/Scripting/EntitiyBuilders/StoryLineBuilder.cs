@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VisualNovel.Commands;
 using VisualNovel.Entities;
@@ -9,6 +10,13 @@ namespace VisualNovel.Scripting.EntityBuilders
     public sealed class StoryLineBuilder : IBuilder<StoryLineSO>
     {
         private readonly List<IBuilder<CommandSO>> _commands = new();
+        private StoryLineSO _cachedBuild;
+
+
+        public StoryLineBuilder()
+        {
+            
+        }
 
 
         public StoryLineBuilder AddCommand<TCmd>(IBuilder<TCmd> commandBuilder)
@@ -44,9 +52,20 @@ namespace VisualNovel.Scripting.EntityBuilders
             return AddCommands(commands.Select(cmd => new FromResultBuilder<CommandSO>(cmd)));
         }
 
+
+        private static long _counter;
+
         public StoryLineSO Build()
         {
-            return StoryLineSO.Create(_commands.Select(builder => builder.Build()));
+            if(++_counter > 200)
+            {
+                long tmp = _counter;
+                _counter = 0;
+                throw new InvalidOperationException(tmp.ToString());
+            }
+
+            _cachedBuild ??= StoryLineSO.Create(_commands.Select(builder => builder.Build()));
+            return _cachedBuild;
         }
     }
 }
