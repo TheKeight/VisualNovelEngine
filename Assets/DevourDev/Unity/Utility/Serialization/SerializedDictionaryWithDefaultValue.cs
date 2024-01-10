@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using DevourDev.Unity.Utility.Editor;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace VisualNovel.Utility
+namespace DevourDev.Unity.Utility.Serialization
 {
     [System.Serializable]
     public sealed class SerializedDictionaryWithDefaultValue<TKey, TValue> : IReadOnlyDictionary<TKey, TValue>

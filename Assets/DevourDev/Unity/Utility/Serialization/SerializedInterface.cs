@@ -1,11 +1,9 @@
-﻿using System;
-using UnityEngine;
-using VisualNovel.CommandSystem;
+﻿using UnityEngine;
 
-namespace VisualNovel.Utility
+namespace DevourDev.Unity.Utility.Serialization
 {
     [System.Serializable]
-    public sealed class SerializedInterface<T> : IItemProvider<T>
+    public sealed class SerializedInterface<T>
         where T : class
     {
         [SerializeField] private UnityEngine.Object _rawObject;

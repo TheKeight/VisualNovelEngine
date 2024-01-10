@@ -1,16 +1,16 @@
 using TMPro;
 using UnityEngine;
 
-namespace VisualNovel.Utility
+namespace DevourDev.Unity.Utility.UI
 {
     [System.Serializable]
-    public struct TextDesign
+    public struct TextMeshProTextDesign
     {
         [SerializeField] private Color _textColor;
         [SerializeField] private Color _outlineColor;
 
 
-        public TextDesign(Color textColor, Color outlineColor)
+        public TextMeshProTextDesign(Color textColor, Color outlineColor)
         {
             _textColor = textColor;
             _outlineColor = outlineColor;

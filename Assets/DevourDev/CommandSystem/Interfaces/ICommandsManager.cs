@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VisualNovel.CommandSystem
+namespace DevourDev.CommandSystem.Interfaces
 {
     public interface ICommandsManager
     {

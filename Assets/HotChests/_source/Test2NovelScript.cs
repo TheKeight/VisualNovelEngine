@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using VisualNovel.Entities;
-using VisualNovel.Scripting;
 using VisualNovel.Utility.NovelScripts;
 
 namespace VisualNovel.HotChests

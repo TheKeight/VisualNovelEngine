@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace VisualNovel.Utility
+namespace DevourDev.Unity.Utility.Serialization
 {
     [System.Serializable]
     public sealed class TypeMap<TInput, TOutput> : IReadOnlyDictionary<System.Type, TOutput>

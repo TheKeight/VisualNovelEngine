@@ -1,7 +1,9 @@
 ﻿using System;
+using DevourDev.CommandSystem;
+using DevourDev.CommandSystem.Interfaces;
 using UnityEngine;
 
-namespace VisualNovel.CommandSystem
+namespace DevourDev.Unity.CommandSystem
 {
     [DefaultExecutionOrder(-3000)]
     public sealed class CommandsManagerComponent : MonoBehaviour, ICommandsManager

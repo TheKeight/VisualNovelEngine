@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using DevourDev.CommandSystem.Interfaces;
 
-namespace VisualNovel.CommandSystem
+namespace DevourDev.CommandSystem
 {
     public sealed class CommandsManager : ICommandsManager
     {

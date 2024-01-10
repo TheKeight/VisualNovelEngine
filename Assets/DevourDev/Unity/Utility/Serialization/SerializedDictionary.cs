@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace VisualNovel.Utility
+namespace DevourDev.Unity.Utility.Serialization
 {
-
     [System.Serializable]
     public sealed class SerializedDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, TValue>
     {

@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace VisualNovel.Utility
+namespace DevourDev.Unity.Utility.Editor
 {
     [CustomPropertyDrawer(typeof(RequiredAttribute))]
     public class RequiredDrawer : PropertyDrawer
