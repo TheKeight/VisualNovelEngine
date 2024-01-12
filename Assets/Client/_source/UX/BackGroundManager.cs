@@ -1,15 +1,27 @@
-﻿using UnityEngine;
+﻿using NovelEngine.Entities.Interface;
+using UnityEngine;
 
-namespace VisualNovel.Client.UX
+namespace NovelEngine.CommandHandlers.UX
 {
     public sealed class BackGroundManager : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer _backGroundSpriteRenderer;
+        [SerializeField] private float _zPos;
+        private BackGround _currentBG;
 
 
-        public void ChangeBackGroundImage(Sprite sprite)
+        //TODO: check cam.ViewportToWorldPoint (for z)
+        public void ChangeBackGroundImage(BackGround bg)
         {
-            _backGroundSpriteRenderer.sprite = sprite;
+            if(_currentBG != null)
+            {
+                Destroy(_currentBG.gameObject);
+            }
+
+            var cam = Camera.main;
+            var pos = cam.transform.position;
+            pos.z = _zPos;
+            _currentBG = Instantiate(bg, pos, Quaternion.identity);
+            _currentBG.Encapsulate(cam.ViewportToWorldPoint(Vector3.zero), cam.ViewportToWorldPoint(Vector3.one));
         }
     }
 }

@@ -1,30 +1,32 @@
-﻿using UnityEngine;
-using VisualNovel.Entities;
+﻿using DevourDev.Unity.NovelEngine.Entities;
+using UnityEngine;
+using NovelEngine.Entities;
 
-namespace VisualNovel.Client.UX
+namespace NovelEngine.CommandHandlers.UX
 {
     public sealed class SimpleCharacterOnScene : CharacterOnScene
     {
         [SerializeField] private SpriteRenderer _sr;
 
-        private CharacterSO _reference;
-        private AppearanceKeySO _appearanceKey;
+        private Character _reference;
+        private AppearanceKey _appearanceKey;
 
 
-        public override CharacterSO Reference => _reference;
+        public override Character Reference => _reference;
 
-        public override AppearanceKeySO AppearanceKey
+        public override AppearanceKey AppearanceKey
         {
             get => _appearanceKey;
             set
             {
                 _appearanceKey = value;
-                _sr.sprite = _reference.GetAppearance(_appearanceKey);
+                throw new System.NotImplementedException();
+                //_sr.sprite = _reference.GetAppearance(_appearanceKey);
             }
         }
 
 
-        public override void Init(CharacterSO reference, AppearanceKeySO appearanceKey)
+        public override void Init(Character reference, AppearanceKey appearanceKey)
         {
             _reference = reference;
             AppearanceKey = appearanceKey;

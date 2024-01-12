@@ -1,0 +1,9 @@
+﻿using UnityEngine;
+
+namespace NovelEngine.Entities.Interface
+{
+    public abstract class SoundBase : ScriptableObject, ISound
+    {
+        public abstract AudioClip Clip { get; }
+    }
+}

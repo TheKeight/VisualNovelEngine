@@ -1,8 +1,8 @@
-﻿using VisualNovel.Entities;
+﻿using DevourDev.Unity.NovelEngine.Entities;
 
-namespace VisualNovel.Client.UX
+namespace NovelEngine.CommandHandlers.UX
 {
-    public abstract class CharacterOnScene : NovelEntityOnScene<CharacterSO>
+    public abstract class CharacterOnScene : NovelEntityOnScene<Character>
     {
 
     }

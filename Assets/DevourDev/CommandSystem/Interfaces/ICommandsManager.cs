@@ -2,12 +2,10 @@
 
 namespace DevourDev.CommandSystem.Interfaces
 {
-    public interface ICommandsManager
+    public interface ICommandsManager : ICommandHandler
     {
-        void RegisterCommandExecutor(Type commandType, ICommandExecutor commandExecutor);
-        void ChangeCommandExecutor(Type commandType, ICommandExecutor newCommandExecutor);
-        bool ContainsCommandExecutor(Type commandType);
-
-        void Execute(ICommand command);
+        void RegisterHandler(Type commandType, ICommandHandler handler);
+        void ChangeHandler(Type commandType, ICommandHandler newHandler);
+        bool ContainsHandler(Type commandType);
     }
 }

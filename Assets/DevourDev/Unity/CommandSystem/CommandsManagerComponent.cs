@@ -5,30 +5,29 @@ using UnityEngine;
 
 namespace DevourDev.Unity.CommandSystem
 {
-    [DefaultExecutionOrder(-3000)]
     public sealed class CommandsManagerComponent : MonoBehaviour, ICommandsManager
     {
         private readonly CommandsManager _commandsManager = new();
 
 
-        public void RegisterCommandExecutor(Type commandType, ICommandExecutor commandExecutor)
+        public void RegisterHandler(Type commandType, ICommandHandler commandExecutor)
         {
-            _commandsManager.RegisterCommandExecutor(commandType, commandExecutor);
+            _commandsManager.RegisterHandler(commandType, commandExecutor);
         }
 
-        public void ChangeCommandExecutor(Type commandType, ICommandExecutor newCommandExecutor)
+        public void ChangeHandler(Type commandType, ICommandHandler newCommandExecutor)
         {
-            _commandsManager.ChangeCommandExecutor(commandType, newCommandExecutor);
+            _commandsManager.ChangeHandler(commandType, newCommandExecutor);
         }
 
-        public bool ContainsCommandExecutor(Type commandType)
+        public bool ContainsHandler(Type commandType)
         {
-            return _commandsManager.ContainsCommandExecutor(commandType);
+            return _commandsManager.ContainsHandler(commandType);
         }
 
-        public void Execute(ICommand command)
+        public void Handle(ICommand command)
         {
-            _commandsManager.Execute(command);
+            _commandsManager.Handle(command);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace VisualNovel.Client.Utility
+namespace NovelEngine.Utility
 {
     public abstract class GameObjectsProviderSO<TKey, TValue> : ScriptableObject, IGameObjectsProvider<TKey, TValue>
      where TValue : UnityEngine.Object

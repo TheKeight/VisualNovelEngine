@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using VisualNovel.Entities;
+using NovelEngine.Entities;
 
-namespace VisualNovel.Client.UX
+namespace NovelEngine.CommandHandlers.UX
 {
     public abstract class PositionManager : MonoBehaviour
     {
-        public abstract void ChangePosition(Transform tr, ScenePositionSO position);
+        public abstract void ChangePosition(Transform tr, float position);
     }
 }

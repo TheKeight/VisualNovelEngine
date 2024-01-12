@@ -1,8 +1,8 @@
 ﻿using System;
+using DevourDev.Unity.Utility.Serialization;
 using UnityEngine;
-using VisualNovel.Utility;
 
-namespace VisualNovel.Client.Utility
+namespace NovelEngine.Utility
 {
     [System.Serializable]
     public sealed class GameObjectsProvider<TKey, TValue> : IGameObjectsProvider<TKey, TValue>

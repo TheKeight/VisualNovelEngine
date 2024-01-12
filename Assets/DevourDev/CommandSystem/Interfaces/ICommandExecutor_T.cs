@@ -1,10 +1,10 @@
 ﻿namespace DevourDev.CommandSystem.Interfaces
 {
-    public interface ICommandExecutor<TCmd> : ICommandExecutor
+    public interface ICommandHandler<TCmd> : ICommandHandler
         where TCmd : ICommand
     {
-        void Execute(TCmd command);
+        void Handle(TCmd command);
 
-        void ICommandExecutor.Execute(ICommand command) => Execute(command);
+        void ICommandHandler.Handle(ICommand command) => Handle((TCmd)command);
     }
 }

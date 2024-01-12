@@ -1,11 +1,11 @@
-﻿using UnityEngine;
-using VisualNovel.Client.Utility;
-using VisualNovel.Entities;
+﻿using DevourDev.Unity.NovelEngine.Entities;
+using NovelEngine.Utility;
+using UnityEngine;
 
-namespace VisualNovel.Client.UX
+namespace NovelEngine.CommandHandlers.UX
 {
     [CreateAssetMenu(menuName = "Visual Novel/Client/CharacterVM Provider")]
-    public sealed class CharacterViewModelsProvider : GameObjectsProviderSO<CharacterSO, CharacterOnScene>
+    public sealed class CharacterViewModelsProvider : GameObjectsProviderSO<Character, CharacterOnScene>
     {
     }
 }

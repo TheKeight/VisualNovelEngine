@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using DevourDev.Unity.Utility.Attributes;
 using UnityEditor;
 using UnityEngine;
 
@@ -28,10 +29,5 @@ namespace DevourDev.Unity.Utility.Editor
             return baseHeight;
         }
     }
-
-    public class RequiredAttribute : PropertyAttribute
-    {
-    }
-
 }
 #endif

@@ -1,9 +1,9 @@
-﻿using TMPro;
+﻿using DevourDev.Unity.Utility.UI;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using VisualNovel.Utility;
 
-namespace VisualNovel.Client.UX.Selection
+namespace NovelEngine.CommandHandlers.UX.Selection
 {
     //TODO: придумать логику показа\скрытия элементов, чтобы можно было скрыть весь
     // интерфейс (оставить только фон, персов и предметы).
@@ -22,7 +22,7 @@ namespace VisualNovel.Client.UX.Selection
             _title.text = title;
         }
 
-        public void Init(SelectorUI selector, int index, string title, TextDesign titleTextDesign)
+        public void Init(SelectorUI selector, int index, string title, TextMeshProDesign titleTextDesign)
         {
             Init(selector, index, title);
             titleTextDesign.Apply(_title);

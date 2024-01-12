@@ -1,15 +1,16 @@
-﻿using UnityEngine;
+﻿using NovelEngine.Entities.Interface;
+using UnityEngine;
 
-namespace VisualNovel.Client.UX
+namespace NovelEngine.CommandHandlers.UX
 {
     public sealed class SfxManager : MonoBehaviour
     {
         [SerializeField] private AudioSource _sfxSource;
 
 
-        public void PlaySound(AudioClip clip)
+        public void PlaySound(SoundBase sound)
         {
-            _sfxSource.PlayOneShot(clip);
+            _sfxSource.PlayOneShot(sound.Clip);
         }
     }
 }

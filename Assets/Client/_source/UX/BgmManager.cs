@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
+using NovelEngine.Entities;
+using NovelEngine.Utility;
 using UnityEngine;
 using UnityEngine.Assertions;
-using VisualNovel.Client.Utility;
-using VisualNovel.Entities;
 
-namespace VisualNovel.Client.UX
+namespace NovelEngine.CommandHandlers.UX
 {
     public sealed class BgmManager : MonoBehaviour
     {
         [SerializeField] private AudioSource _bgmSource;
 
-        private AudioPlaylist _playlist;
+        private AudioPlayList _playlist;
         private List<AudioClip> _clips = new();
         private int _playlistIndex = 0;
 
@@ -20,7 +20,7 @@ namespace VisualNovel.Client.UX
             ProcessPlaylist();
         }
 
-        public void ChangePlaylist(AudioPlaylist playlist, bool shuffle)
+        public void ChangePlaylist(AudioPlayList playlist, bool shuffle)
         {
             _playlist = playlist;
             _playlistIndex = 0;

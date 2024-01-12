@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace VisualNovel.Client.Utility
+namespace NovelEngine.Utility
 {
     public interface IGameObjectsProvider<TKey, TValue> where TValue : Object
     {

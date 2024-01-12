@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using DevourDev.Unity.NovelEngine.Entities;
 using UnityEngine;
-using VisualNovel.Entities;
+using NovelEngine.Entities;
 
-namespace VisualNovel.Client.UX
+namespace NovelEngine.CommandHandlers.UX
 {
     public sealed class CharactersOnSceneManager : MonoBehaviour
     {
         [SerializeField] private PositionManager _positionManager;
         [SerializeField] private CharacterViewModelsProvider _characterViewModelsProvider;
 
-        private readonly Dictionary<CharacterSO, CharacterOnScene> _charactersOnScene = new();
+        private readonly Dictionary<Character, CharacterOnScene> _charactersOnScene = new();
 
 
-        public void Show(CharacterSO character, AppearanceKeySO appearanceKey, ScenePositionSO position)
+        public void Show(Character character, AppearanceKey appearanceKey, float position)
         {
             if (!_charactersOnScene.TryGetValue(character, out var characterOnScene))
             {
@@ -25,7 +26,7 @@ namespace VisualNovel.Client.UX
             _positionManager.ChangePosition(characterOnScene.transform, position);
         }
 
-        public void Hide(CharacterSO character)
+        public void Hide(Character character)
         {
             if (!_charactersOnScene.TryGetValue(character, out var characterOnScene))
                 return;
@@ -33,7 +34,7 @@ namespace VisualNovel.Client.UX
             ReturnCharacterOnSceneInstance(characterOnScene);
         }
 
-        public void ChangeAppearance(CharacterSO character, AppearanceKeySO appearanceKey)
+        public void ChangeAppearance(Character character, AppearanceKey appearanceKey)
         {
             if (!_charactersOnScene.TryGetValue(character, out var characterOnScene))
                 return;
@@ -41,18 +42,20 @@ namespace VisualNovel.Client.UX
             characterOnScene.AppearanceKey = appearanceKey;
         }
 
-        public void ChangePosition(CharacterSO character, ScenePositionSO position)
+        public void ChangePosition(Character character, float position)
         {
             if (!_charactersOnScene.TryGetValue(character, out var characterOnScene))
                 return;
+
+            throw new NotImplementedException();
         }
 
-        public void Highlight(IEnumerable<CharacterSO> characters)
+        public void Highlight(IEnumerable<Character> characters)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Downlight(IEnumerable<CharacterSO> characters)
+        public void Downlight(IEnumerable<Character> characters)
         {
             throw new System.NotImplementedException();
         }
@@ -62,7 +65,7 @@ namespace VisualNovel.Client.UX
             throw new System.NotImplementedException();
         }
 
-        private CharacterOnScene RentCharacterOnSceneInstance(CharacterSO character)
+        private CharacterOnScene RentCharacterOnSceneInstance(Character character)
         {
             var instance = _characterViewModelsProvider.RentInstance(character);
             instance.Init(character, null);

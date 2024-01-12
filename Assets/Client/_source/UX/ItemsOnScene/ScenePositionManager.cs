@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using VisualNovel.Entities;
+using NovelEngine.Entities;
 
-namespace VisualNovel.Client.UX
+namespace NovelEngine.CommandHandlers.UX
 {
     public sealed class ScenePositionManager : PositionManager
     {
@@ -9,15 +9,15 @@ namespace VisualNovel.Client.UX
         [SerializeField] private Transform _maxPoint;
         [SerializeField] private float _zPosition = 0f;
 
-        public override void ChangePosition(Transform tr, ScenePositionSO position)
+        public override void ChangePosition(Transform tr, float position)
         {
             Vector3 min = _minPoint.position;
             Vector3 max = _maxPoint.position;
 
             Vector3 pos = new Vector3
             {
-                x = Mathf.Lerp(min.x, max.x, position.PositionX),
-                y = Mathf.Lerp(min.y, max.y, position.PositionY),
+                x = Mathf.Lerp(min.x, max.x, position),
+                y = Mathf.Lerp(min.y, max.y, position),
                 z = _zPosition
             };
 

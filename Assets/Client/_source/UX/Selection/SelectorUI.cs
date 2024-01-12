@@ -1,20 +1,13 @@
 ﻿using System.Collections.Generic;
+using DevourDev.Unity.NovelEngine.Core;
+using DevourDev.Unity.NovelEngine.Entities;
 using TMPro;
 using UnityEngine;
-using VisualNovel.Commands;
-using VisualNovel.Engine;
-using VisualNovel.Entities;
 
-namespace VisualNovel.Client.UX.Selection
+namespace NovelEngine.CommandHandlers.UX.Selection
 {
     internal sealed class SelectorUI : MonoBehaviour
     {
-        private struct StoryLine : IStoryLine
-        {
-            public IReadOnlyList<CommandSO> Commands { get; set; }
-        }
-
-
         [SerializeField] private GameObject _uiParent;
         [SerializeField] private TMP_Text _title;
         [SerializeField] private SelectorVariantUI _selectorSlotPrefab;
@@ -23,10 +16,10 @@ namespace VisualNovel.Client.UX.Selection
         [SerializeField] private NovelControllerComponent _novelController;
 
         private readonly List<SelectorVariantUI> _slots = new();
-        private IReadOnlyList<ISelectorVariant> _variants;
+        private IReadOnlyList<SelectorVariant> _variants;
 
 
-        public void ShowSelector(string title, IReadOnlyList<ISelectorVariant> variants)
+        public void ShowSelector(string title, IReadOnlyList<SelectorVariant> variants)
         {
             ClearUI();
             _variants = variants;
@@ -34,7 +27,7 @@ namespace VisualNovel.Client.UX.Selection
 
             for (int i = 0; i < variants.Count; i++)
             {
-                ISelectorVariant variant = variants[i];
+                SelectorVariant variant = variants[i];
                 var slot = Instantiate(_selectorSlotPrefab, _slotsParent);
                 _slots.Add(slot);
                 slot.Init(this, i, variant.Title);
@@ -48,7 +41,7 @@ namespace VisualNovel.Client.UX.Selection
             ClearUI();
             var selectedVariant = _variants[index];
             _variants = null;
-            _novelController.SetStoryLine(new StoryLine() { Commands = selectedVariant.Commands }, 0);
+            _novelController.SetStoryLine(selectedVariant.Destination, 0);
             _novelController.GoNext();
         }
 

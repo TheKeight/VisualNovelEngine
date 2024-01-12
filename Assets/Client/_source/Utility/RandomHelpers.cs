@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace VisualNovel.Client.Utility
+namespace NovelEngine.Utility
 {
     public static class RandomHelpers
     {

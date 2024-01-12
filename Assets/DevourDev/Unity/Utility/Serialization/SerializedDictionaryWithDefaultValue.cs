@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using DevourDev.Unity.Utility.Editor;
+using DevourDev.Unity.Utility.Attributes;
 using UnityEngine;
 using UnityEngine.Assertions;
 

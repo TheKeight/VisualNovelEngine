@@ -1,9 +1,9 @@
-﻿using TMPro;
+﻿using DevourDev.Unity.NovelEngine.Entities;
+using DevourDev.Unity.Utility.UI;
+using TMPro;
 using UnityEngine;
-using VisualNovel.Entities;
-using VisualNovel.Utility;
 
-namespace VisualNovel.Client.UX.Dialogue
+namespace NovelEngine.CommandHandlers.UX.Dialogue
 {
     public sealed class DialogueManager : MonoBehaviour
     {
@@ -11,18 +11,18 @@ namespace VisualNovel.Client.UX.Dialogue
         private sealed class Character : ICharacter
         {
             [SerializeField] private string _name;
-            [SerializeField] private TextDesign _nameTextDesign;
-            [SerializeField] private TextDesign _dialogueTextDesign;
-            [SerializeField] private SerializedDictionaryWithDefaultValue<AppearanceKeySO, Sprite> _appearances;
+            [SerializeField] private TextMeshProDesign _nameTextDesign;
+            [SerializeField] private TextMeshProDesign _dialogueTextDesign;
+            //[SerializeField] private SerializedDictionaryWithDefaultValue<AppearanceKeySO, Sprite> _appearances;
 
-            public string Name => _name;
-            public TextDesign NameTextDesign => _nameTextDesign;
-            public TextDesign DialogueTextDesign => _dialogueTextDesign;
+            public string CharacterName => _name;
+            public TextMeshProDesign NameTextDesign => _nameTextDesign;
+            public TextMeshProDesign SpeechTextDesign => _dialogueTextDesign;
 
 
-            public Sprite GetDefaultAppearance() => _appearances.GetDefaultValue();
+            //public Sprite GetDefaultAppearance() => _appearances.GetDefaultValue();
 
-            public Sprite GetAppearance(AppearanceKeySO key) => _appearances.GetValueOrDefault(key);
+            //public Sprite GetAppearance(AppearanceKeySO key) => _appearances.GetValueOrDefault(key);
         }
 
 
@@ -37,7 +37,7 @@ namespace VisualNovel.Client.UX.Dialogue
         {
             character = FixCharacter(character);
             ApplyDesign(character);
-            _authorNameText.text = character.Name;
+            _authorNameText.text = character.CharacterName;
             _dialogueText.text = text;
         }
 
@@ -45,7 +45,7 @@ namespace VisualNovel.Client.UX.Dialogue
         {
             character = FixCharacter(character);
             ApplyDesign(character);
-            _authorNameText.text = $"{character.Name} (мысли)";
+            _authorNameText.text = $"{character.CharacterName} (мысли)";
             _dialogueText.text = $"*{text}*";
         }
 
@@ -57,7 +57,7 @@ namespace VisualNovel.Client.UX.Dialogue
         private void ApplyDesign(ICharacter character)
         {
             character.NameTextDesign.Apply(_authorNameText);
-            character.DialogueTextDesign.Apply(_dialogueText);
+            character.SpeechTextDesign.Apply(_dialogueText);
         }
     }
 }
