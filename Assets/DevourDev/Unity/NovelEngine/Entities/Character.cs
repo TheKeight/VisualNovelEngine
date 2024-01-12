@@ -6,7 +6,7 @@ namespace DevourDev.Unity.NovelEngine.Entities
 {
 
     [CreateAssetMenu(menuName = EntitiesConstants.Entities + nameof(Character))]
-    public sealed class Character : NovelEntity
+    public sealed class Character : NovelEntity, ICharacter
     {
         [SerializeField] private string _characterName;
         [SerializeField] private TextMeshProDesign _nameTextDesign;

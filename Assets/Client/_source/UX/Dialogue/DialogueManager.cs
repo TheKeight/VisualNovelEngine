@@ -13,16 +13,11 @@ namespace NovelEngine.CommandHandlers.UX.Dialogue
             [SerializeField] private string _name;
             [SerializeField] private TextMeshProDesign _nameTextDesign;
             [SerializeField] private TextMeshProDesign _dialogueTextDesign;
-            //[SerializeField] private SerializedDictionaryWithDefaultValue<AppearanceKeySO, Sprite> _appearances;
+
 
             public string CharacterName => _name;
             public TextMeshProDesign NameTextDesign => _nameTextDesign;
             public TextMeshProDesign SpeechTextDesign => _dialogueTextDesign;
-
-
-            //public Sprite GetDefaultAppearance() => _appearances.GetDefaultValue();
-
-            //public Sprite GetAppearance(AppearanceKeySO key) => _appearances.GetValueOrDefault(key);
         }
 
 

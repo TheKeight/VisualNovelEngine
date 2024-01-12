@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using DevourDev.Unity.NovelEngine.Commands;
 using DevourDev.Unity.NovelEngine.Commands.Interfaces;
+using DevourDev.Unity.NovelEngine.Commands.Variables;
+using DevourDev.Unity.NovelEngine.Commands.Variables.Interfaces;
 using DevourDev.Unity.NovelEngine.Entities;
+using DevourDev.Unity.NovelEngine.Entities.Interfaces;
 using DevourDev.Utility;
 using UnityEngine.Assertions;
 
@@ -32,6 +35,54 @@ namespace DevourDev.Unity.NovelEngine.Builders.BaseBuilder
 
     public sealed class NovelScriptBuilder : INovelScriptBuilder
     {
+        private sealed class AutoBranchBuilder
+        {
+            private sealed class BlockBuilder
+            {
+                private VariableCondition<int> _condition;
+                private StoryLine _destination;
+
+
+                public void SetCondition(VariableCondition<int> condition) => _condition = condition;
+                public void SetDestination(StoryLine destination) => _destination = destination;
+
+                public EvaluateVariableConditionBranchCommand<int>.Block Build() => new(_condition, _destination);
+
+                public void Clear()
+                {
+                    _condition = default;
+                    _destination = null;
+                }
+            }
+
+            private readonly BlockBuilder _blockBuilder = new();
+            private readonly List<EvaluateVariableConditionBranchCommand<int>.Block> _blocks = new();
+
+
+            public void BeginBlock(VariableCondition<int> condition)
+            {
+                _blockBuilder.SetCondition(condition);
+            }
+
+            public void EndBlock(StoryLine destination)
+            {
+                _blockBuilder.SetDestination(destination);
+                _blocks.Add(_blockBuilder.Build());
+                _blockBuilder.Clear();
+            }
+
+            public EvaluateIntegerVariableConditionBranchCommand Build()
+            {
+                var cmd = EvaluateIntegerVariableConditionBranchCommand.Create(_blocks);
+                return cmd;
+            }
+
+            public void Clear()
+            {
+                _blocks.Clear();
+            }
+        }
+
         private sealed class SelectorBuilder
         {
             private sealed class VariantBuilder
@@ -95,6 +146,7 @@ namespace DevourDev.Unity.NovelEngine.Builders.BaseBuilder
 
         private readonly Dictionary<string, StoryLine.StoryLineCreationHandle> _storyLineHandles = new();
         private readonly SelectorBuilder _selectorBuilder = new();
+        private readonly AutoBranchBuilder _autoBranchBuilder = new();
         private StoryLine.StoryLineCreationHandle _currentStoryLine = null;
         private StoryLine _startStoryLine = null;
 
@@ -172,6 +224,39 @@ namespace DevourDev.Unity.NovelEngine.Builders.BaseBuilder
             _selectorBuilder.Clear();
         }
 
+        public void BeginAutoBranch()
+        {
+            // Design placeholder.
+        }
+
+        public void BeginConditionBlock(VariableCondition<int> condition)
+        {
+            _autoBranchBuilder.BeginBlock(condition);
+        }
+
+        public void EndConditionBlock(string destinationLabelName)
+        {
+            _autoBranchBuilder.EndBlock(GetStoryLine(destinationLabelName));
+        }
+
+        public void EndAutoBranch()
+        {
+            var cmd = _autoBranchBuilder.Build();
+            AddCommand(cmd);
+            _autoBranchBuilder.Clear();
+        }
+        
+        public void ChangeVariable(Character character, NovelVariable<int> variable, MathOperation operation, int value)
+        {
+            var cmd = ChangeIntegerNovelVariableCommand.Create(character, variable, operation, value);
+            AddCommand(cmd);
+        }
+
+        public void AddCommand(NovelCommand cmd)
+        {
+            _currentStoryLine.AddCommand(cmd);
+        }
+
         public StoryLine GetStoryLine(string labelName) => GetOrCreateStoryLineHandle(labelName).StoryLine;
 
         private StoryLine.StoryLineCreationHandle GetOrCreateStoryLineHandle(string labelName)
@@ -183,11 +268,6 @@ namespace DevourDev.Unity.NovelEngine.Builders.BaseBuilder
             }
 
             return value;
-        }
-
-        private void AddCommand(NovelCommand cmd)
-        {
-            _currentStoryLine.AddCommand(cmd);
         }
 
         private void EnsureCurrentStoryLineExists()

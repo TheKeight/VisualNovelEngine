@@ -89,7 +89,7 @@ namespace DevourDev.Unity.NovelEngine.Tests.SimpleTest
 
                 public override void Handle(SayCommand command)
                 {
-                    Log($"{command.Speaker?.CharacterName}: {command.Speech}");
+                    Log($"{command.Character?.CharacterName}: {command.Speech}");
                 }
             }
 

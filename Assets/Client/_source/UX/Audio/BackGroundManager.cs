@@ -1,18 +1,18 @@
 ﻿using NovelEngine.Entities.Interface;
+using NovelEngine.Utility;
 using UnityEngine;
 
 namespace NovelEngine.CommandHandlers.UX
 {
     public sealed class BackGroundManager : MonoBehaviour
     {
-        [SerializeField] private float _zPos;
+        [SerializeField] private float _zPos = 0;
         private BackGround _currentBG;
 
 
-        //TODO: check cam.ViewportToWorldPoint (for z)
         public void ChangeBackGroundImage(BackGround bg)
         {
-            if(_currentBG != null)
+            if (_currentBG != null)
             {
                 Destroy(_currentBG.gameObject);
             }
@@ -21,7 +21,6 @@ namespace NovelEngine.CommandHandlers.UX
             var pos = cam.transform.position;
             pos.z = _zPos;
             _currentBG = Instantiate(bg, pos, Quaternion.identity);
-            _currentBG.Encapsulate(cam.ViewportToWorldPoint(Vector3.zero), cam.ViewportToWorldPoint(Vector3.one));
         }
     }
 }

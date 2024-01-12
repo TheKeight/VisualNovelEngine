@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace DevourDev.Unity.NovelEngine.Commands
 {
+
     [CreateAssetMenu(menuName = CommandsConstants.Commands + nameof(DelayCommand))]
     public sealed class DelayCommand : NovelCommand
     {

@@ -12,7 +12,7 @@ namespace DevourDev.Unity.NovelEngine.Commands
         [SerializeField] private string _speech;
 
 
-        public Character Speaker => _speaker;
+        public Character Character => _speaker;
         public string Speech => _speech;
 
 

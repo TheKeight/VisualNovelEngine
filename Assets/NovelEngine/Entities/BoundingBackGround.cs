@@ -8,8 +8,10 @@ namespace NovelEngine.Entities
         [SerializeField] private Transform _itemToScale;
         [SerializeField] private Transform _min;
         [SerializeField] private Transform _max;
+        [SerializeField] private bool _fitMax = true;
 
 
+        [System.Obsolete("todo: rename", false)]
         public override void Encapsulate(Vector2 min, Vector2 max)
         {
             Vector2 thisMin = _min.position;
@@ -24,12 +26,12 @@ namespace NovelEngine.Entities
             float widthRatio = targetWidth / width;
             float heightRatio = targetHeight / height;
 
-            float minRatio = Mathf.Min(widthRatio, heightRatio);
+            float targetRatio = _fitMax ? Mathf.Max(widthRatio, heightRatio) : Mathf.Min(widthRatio, heightRatio);
 
-            if (Mathf.Approximately(minRatio, 1f))
+            if (Mathf.Approximately(targetRatio, 1f))
                 return;
 
-            _itemToScale.localScale = new Vector3(minRatio, minRatio, 1f);
+            _itemToScale.localScale = new Vector3(targetRatio, targetRatio, 1f);
         }
 
 

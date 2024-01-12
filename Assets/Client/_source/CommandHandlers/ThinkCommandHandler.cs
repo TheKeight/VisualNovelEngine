@@ -1,6 +1,6 @@
-﻿using NovelEngine.Commands;
+﻿using NovelEngine.CommandHandlers.UX.Dialogue;
+using NovelEngine.Commands;
 using UnityEngine;
-using NovelEngine.CommandHandlers.UX.Dialogue;
 
 namespace NovelEngine.CommandHandlers
 {
@@ -11,9 +11,7 @@ namespace NovelEngine.CommandHandlers
 
         public override void Handle(Think command)
         {
-            UnityEngine.Debug.LogError("not implemented");
-
-            //_dialogueManager.Think(command.Character, command.Text);
+            _dialogueManager.Think(command.Character, command.Thought);
         }
     }
 }

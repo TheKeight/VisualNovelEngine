@@ -2,6 +2,22 @@
 
 namespace DevourDev.Unity.NovelEngine.Entities.Interfaces
 {
+    public enum MathOperation
+    {
+        Add,
+        Subtract,
+        Multiply,
+        Divide,
+    }
+
+    public enum MathEquation
+    {
+        AreEqual,
+        AreNotEqual,
+        IsGreaterThan,
+        IsLessThan,
+    }
+
     public abstract class NovelVariable<T> : NovelEntity
     {
         [SerializeField] private string _variableName;
