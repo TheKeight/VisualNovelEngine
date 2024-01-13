@@ -8,10 +8,10 @@ namespace NovelEngine.Commands
     [CreateAssetMenu(menuName = CommandsConstants.Commands + nameof(PlaySoundCommand))]
     public sealed class PlaySoundCommand : NovelCommand
     {
-        [field: SerializeField] public SoundBase Sound { get; private set; }
+        [field: SerializeField] public Sound Sound { get; private set; }
 
 
-        public static PlaySoundCommand Create(SoundBase sound)
+        public static PlaySoundCommand Create(Sound sound)
         {
             var inst = CreateInstance<PlaySoundCommand>();
             inst.Sound = sound;

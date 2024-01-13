@@ -6,6 +6,7 @@ namespace DevourDev.Unity.NovelEngine.Entities
     [CreateAssetMenu(menuName = EntitiesConstants.Entities + nameof(IntegerNovelVariable))]
     public sealed class IntegerNovelVariable : NovelVariable<int>
     {
+        public override int Set(int a, int b) => b;
         public override int Add(int a, int b) => a + b;
 
         public override int Subtract(int a, int b) => a - b;

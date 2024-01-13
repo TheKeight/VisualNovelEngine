@@ -5,16 +5,16 @@ using UnityEngine;
 
 namespace NovelEngine.Commands
 {
-    [CreateAssetMenu(menuName = CommandsConstants.Commands + nameof(Think))]
-    public sealed class Think : NovelCommand
+    [CreateAssetMenu(menuName = CommandsConstants.Commands + nameof(ThinkCommand))]
+    public sealed class ThinkCommand : NovelCommand
     {
         [field: SerializeField] public Character Character { get; private set; }
         [field: SerializeField] public string Thought { get; private set; }
 
 
-        public static Think Create(Character character, string thought)
+        public static ThinkCommand Create(Character character, string thought)
         {
-            var inst = CreateInstance<Think>();
+            var inst = CreateInstance<ThinkCommand>();
             inst.Character = character;
             inst.Thought = thought;
             return inst;

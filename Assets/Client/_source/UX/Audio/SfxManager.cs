@@ -1,14 +1,14 @@
 ﻿using NovelEngine.Entities.Interface;
 using UnityEngine;
 
-namespace NovelEngine.CommandHandlers.UX
+namespace NovelEngine.UX.Audio
 {
     public sealed class SfxManager : MonoBehaviour
     {
         [SerializeField] private AudioSource _sfxSource;
 
 
-        public void PlaySound(SoundBase sound)
+        public void PlaySound(Sound sound)
         {
             _sfxSource.PlayOneShot(sound.Clip);
         }

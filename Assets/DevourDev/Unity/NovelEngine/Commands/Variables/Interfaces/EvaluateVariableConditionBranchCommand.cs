@@ -23,9 +23,11 @@ namespace DevourDev.Unity.NovelEngine.Commands.Variables.Interfaces
 
 
         [SerializeField] private Block[] _blocks;
+        [SerializeField] private StoryLine _defaultDestination;
 
 
         public IReadOnlyList<Block> Blocks => _blocks;
+        public StoryLine DefaultDestination => _defaultDestination;
 
 
         protected void Init(Block[] blocks)

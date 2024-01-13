@@ -1,38 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DevourDev.Unity.NovelEngine.Builders.Entities;
+using DevourDev.Unity.NovelEngine.Builders.Interfaces;
 using DevourDev.Unity.NovelEngine.Commands;
 using DevourDev.Unity.NovelEngine.Commands.Interfaces;
 using DevourDev.Unity.NovelEngine.Commands.Variables;
 using DevourDev.Unity.NovelEngine.Commands.Variables.Interfaces;
 using DevourDev.Unity.NovelEngine.Entities;
 using DevourDev.Unity.NovelEngine.Entities.Interfaces;
-using DevourDev.Utility;
+using NovelEngine.Commands;
+using NovelEngine.Entities;
+using NovelEngine.Entities.Interface;
 using UnityEngine.Assertions;
 
 namespace DevourDev.Unity.NovelEngine.Builders.BaseBuilder
 {
-    public readonly struct NovelScriptData
-    {
-        private readonly StoryLine[] _storyLines;
-        private readonly int _startStoryLineIndex;
-
-
-        public NovelScriptData(StoryLine[] storyLines, int startStoryLineIndex)
-        {
-            _storyLines = storyLines;
-            _startStoryLineIndex = startStoryLineIndex;
-        }
-
-
-        public StoryLine[] StoryLines => _storyLines;
-        public int StartStoryLineIndex => _startStoryLineIndex;
-    }
-
-    public interface INovelScriptBuilder : IBuilder<NovelScriptData>
-    {
-    }
-
     public sealed class NovelScriptBuilder : INovelScriptBuilder
     {
         private sealed class AutoBranchBuilder
@@ -180,6 +163,24 @@ namespace DevourDev.Unity.NovelEngine.Builders.BaseBuilder
             _currentStoryLine = null;
         }
 
+        public void EndGame(string endGameMessage)
+        {
+            EnsureCurrentStoryLineExists();
+            var cmd = EndGameCommand.Create(endGameMessage);
+            AddCommand(cmd);
+        }
+
+        public void ChangeBG(BackGround backGround)
+        {
+            EnsureCurrentStoryLineExists();
+            var cmd = ChangeBackGroundCommand.Create(backGround);
+            AddCommand(cmd);
+        }
+
+
+
+        public void Say(string speech) => Say(null, speech);
+
         public void Say(Character speaker, string speech)
         {
             EnsureCurrentStoryLineExists();
@@ -187,10 +188,69 @@ namespace DevourDev.Unity.NovelEngine.Builders.BaseBuilder
             AddCommand(cmd);
         }
 
-        public void Show(Character character, float position)
+        public void Say(Character speaker, string characterNameOverride, string speech)
         {
             EnsureCurrentStoryLineExists();
-            var cmd = ShowCharacterCommand.Create(character, position, null);
+            var cmd = SayCommand.Create(speaker, speech);
+            AddCommand(cmd);
+        }
+
+
+        public void Think(string thought) => Think(null, thought);
+
+        public void Think(Character character, string thought)
+        {
+            EnsureCurrentStoryLineExists();
+            var cmd = ThinkCommand.Create(character, thought);
+            AddCommand(cmd);
+        }
+
+        public void Delay(float timeSeconds)
+        {
+            EnsureCurrentStoryLineExists();
+            var cmd = DelayCommand.Create(timeSeconds);
+            AddCommand(cmd);
+        }
+
+        public void WaitForClick()
+        {
+            EnsureCurrentStoryLineExists();
+            var cmd = WaitForClickCommand.Create();
+            AddCommand(cmd);
+        }
+
+        public void ChangeAppearance(Character character, AppearanceKey appearanceKey)
+        {
+            EnsureCurrentStoryLineExists();
+            var cmd = ChangeCharacterAppearanceCommand.Create(character, appearanceKey);
+            AddCommand(cmd);
+        }
+
+        public void Move(Character character, float position)
+        {
+            EnsureCurrentStoryLineExists();
+            var cmd = MoveCharacterCommand.Create(character, position);
+            AddCommand(cmd);
+        }
+
+        public void PlaySound(Sound sound)
+        {
+            EnsureCurrentStoryLineExists();
+            var cmd = PlaySoundCommand.Create(sound);
+            AddCommand(cmd);
+        }
+
+        public void Show(Character character, float position, AppearanceKey appearanceKey = null)
+        {
+            EnsureCurrentStoryLineExists();
+            var cmd = ShowCharacterCommand.Create(character, position, appearanceKey);
+            AddCommand(cmd);
+        }
+
+        public void Hide(Character character)
+        {
+            EnsureCurrentStoryLineExists();
+            var cmd = HideCharacterCommand.Create(character);
             AddCommand(cmd);
         }
 
@@ -199,6 +259,19 @@ namespace DevourDev.Unity.NovelEngine.Builders.BaseBuilder
             EnsureCurrentStoryLineExists();
             var cmd = JumpToStoryLineCommand.Create(GetStoryLine(destinationLabelName));
             AddCommand(cmd);
+        }
+
+        public void Selector(string title, params (string title, string destinationLabelName)[] variants)
+        {
+            BeginSelector(title);
+
+            foreach (var variant in variants)
+            {
+                BeginSelectorVariant(variant.title);
+                EndSelectorVariant(variant.destinationLabelName);
+            }
+
+            EndSelector();
         }
 
         public void BeginSelector(string selectorTitle)
@@ -241,6 +314,7 @@ namespace DevourDev.Unity.NovelEngine.Builders.BaseBuilder
 
         public void EndAutoBranch()
         {
+            EnsureCurrentStoryLineExists();
             var cmd = _autoBranchBuilder.Build();
             AddCommand(cmd);
             _autoBranchBuilder.Clear();
@@ -248,8 +322,28 @@ namespace DevourDev.Unity.NovelEngine.Builders.BaseBuilder
         
         public void ChangeVariable(Character character, NovelVariable<int> variable, MathOperation operation, int value)
         {
+            EnsureCurrentStoryLineExists();
             var cmd = ChangeIntegerNovelVariableCommand.Create(character, variable, operation, value);
             AddCommand(cmd);
+        }
+
+        public void ChangeBGM(AudioPlayList playlist)
+        {
+            EnsureCurrentStoryLineExists();
+            var cmd = ChangeBackGroundMusicCommand.Create(playlist);
+            AddCommand(cmd);
+        }
+
+        public void BeginSoundLoop(Sound soundLoop)
+        {
+            EnsureCurrentStoryLineExists();
+            //TODO: Do
+        }
+
+        public void EndSoundLoop(Sound soundLoop)
+        {
+            EnsureCurrentStoryLineExists();
+            //TODO: Do
         }
 
         public void AddCommand(NovelCommand cmd)

@@ -2,7 +2,7 @@
 using UnityEngine;
 using NovelEngine.Entities;
 
-namespace NovelEngine.CommandHandlers.UX
+namespace NovelEngine.UX.ItemsOnScene
 {
     public sealed class SimpleCharacterOnScene : CharacterOnScene
     {

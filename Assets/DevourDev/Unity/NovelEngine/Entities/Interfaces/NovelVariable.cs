@@ -4,6 +4,7 @@ namespace DevourDev.Unity.NovelEngine.Entities.Interfaces
 {
     public enum MathOperation
     {
+        Set,
         Add,
         Subtract,
         Multiply,
@@ -21,11 +22,14 @@ namespace DevourDev.Unity.NovelEngine.Entities.Interfaces
     public abstract class NovelVariable<T> : NovelEntity
     {
         [SerializeField] private string _variableName;
+        [SerializeField] private T _defaultValue;
 
 
         public string VariableName => _variableName;
+        public T DefaultValue => _defaultValue;
 
 
+        public abstract T Set(T a, T b);
         public abstract T Add(T a, T b);
         public abstract T Subtract(T a, T b);
         public abstract T Multiply(T a, T b);

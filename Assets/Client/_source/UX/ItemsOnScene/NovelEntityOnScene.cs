@@ -1,7 +1,7 @@
 ﻿using NovelEngine.Entities;
 using UnityEngine;
 
-namespace NovelEngine.CommandHandlers.UX
+namespace NovelEngine.UX.ItemsOnScene
 {
     public abstract class NovelEntityOnScene<TEntityReference> : MonoBehaviour
     {

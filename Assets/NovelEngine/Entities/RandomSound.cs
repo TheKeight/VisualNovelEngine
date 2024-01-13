@@ -5,7 +5,7 @@ using UnityEngine;
 namespace NovelEngine.Entities
 {
     [CreateAssetMenu(menuName = EntitiesConstants.Entities + nameof(RandomSound))]
-    public sealed class RandomSound : SoundBase, ISound
+    public sealed class RandomSound : Sound, ISound
     {
         [SerializeField] private AudioClip[] _sounds;
 

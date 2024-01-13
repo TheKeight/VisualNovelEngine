@@ -1,7 +1,6 @@
-﻿using NovelEngine.Commands;
+﻿using DevourDev.Unity.NovelEngine.Commands;
+using NovelEngine.UX.ItemsOnScene;
 using UnityEngine;
-using NovelEngine.CommandHandlers.UX;
-using DevourDev.Unity.NovelEngine.Commands;
 
 namespace NovelEngine.CommandHandlers.CommandExecutors
 {

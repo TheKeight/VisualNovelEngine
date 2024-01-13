@@ -4,7 +4,7 @@ using NovelEngine.Utility;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace NovelEngine.CommandHandlers.UX
+namespace NovelEngine.UX.Audio
 {
     public sealed class BgmManager : MonoBehaviour
     {

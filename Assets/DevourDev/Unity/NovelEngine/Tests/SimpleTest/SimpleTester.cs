@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DevourDev.CommandSystem;
 using DevourDev.CommandSystem.Interfaces;
 using DevourDev.Unity.NovelEngine.Builders.BaseBuilder;
+using DevourDev.Unity.NovelEngine.Builders.Entities;
 using DevourDev.Unity.NovelEngine.Commands;
 using DevourDev.Unity.NovelEngine.Entities;
 using DevourDev.Utility;

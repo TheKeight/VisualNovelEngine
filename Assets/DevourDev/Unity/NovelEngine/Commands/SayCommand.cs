@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace DevourDev.Unity.NovelEngine.Commands
 {
-
     [CreateAssetMenu(menuName = CommandsConstants.Commands + nameof(SayCommand))]
     public sealed class SayCommand : NovelCommand
     {

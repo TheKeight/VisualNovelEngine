@@ -1,5 +1,5 @@
 ﻿using DevourDev.Unity.NovelEngine.Commands;
-using NovelEngine.CommandHandlers.UX.Dialogue;
+using NovelEngine.UX.Dialogue;
 using UnityEngine;
 
 namespace NovelEngine.CommandHandlers

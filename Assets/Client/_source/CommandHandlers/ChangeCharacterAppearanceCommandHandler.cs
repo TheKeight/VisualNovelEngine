@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using NovelEngine.CommandHandlers.UX;
-using NovelEngine.Commands;
+﻿using NovelEngine.Commands;
+using NovelEngine.UX.ItemsOnScene;
+using UnityEngine;
 
 namespace NovelEngine.CommandHandlers
 {

@@ -2,7 +2,7 @@
 using NovelEngine.Utility;
 using UnityEngine;
 
-namespace NovelEngine.CommandHandlers.UX
+namespace NovelEngine.UX.Audio
 {
     public sealed class BackGroundManager : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using DevourDev.Unity.Utility.UI;
 using TMPro;
 using UnityEngine;
 
-namespace NovelEngine.CommandHandlers.UX.Dialogue
+namespace NovelEngine.UX.Dialogue
 {
     public sealed class DialogueManager : MonoBehaviour
     {

@@ -4,7 +4,7 @@ using DevourDev.Unity.NovelEngine.Entities;
 using UnityEngine;
 using NovelEngine.Entities;
 
-namespace NovelEngine.CommandHandlers.UX
+namespace NovelEngine.UX.ItemsOnScene
 {
     public sealed class CharactersOnSceneManager : MonoBehaviour
     {

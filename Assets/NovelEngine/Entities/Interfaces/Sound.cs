@@ -1,14 +1,9 @@
-﻿using DevourDev.Unity.NovelEngine.Entities;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace NovelEngine.Entities.Interface
 {
-    [CreateAssetMenu(menuName = EntitiesConstants.Entities + nameof(Sound))]
-    public sealed class Sound : SoundBase, ISound
+    public abstract class Sound : ScriptableObject, ISound
     {
-        [SerializeField] private AudioClip _sound;
-
-
-        public override AudioClip Clip => _sound;
+        public abstract AudioClip Clip { get; }
     }
 }
