@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using NovelEngine.Entities;
 
 namespace NovelEngine.UX.ItemsOnScene
 {
     public abstract class PositionManager : MonoBehaviour
     {
-        public abstract void ChangePosition(Transform tr, float position);
+        public abstract Vector3 GetWorldPosition(float oneDPosition);
     }
 }

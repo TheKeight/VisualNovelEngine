@@ -11,7 +11,18 @@ namespace NovelEngine.Entities
         [SerializeField] private bool _fitMax = true;
 
 
-        [System.Obsolete("todo: rename", false)]
+        private void OnDrawGizmos()
+        {
+            if (_min == null || _max == null)
+                return;
+
+            Color c = Color.red;
+            c.a = 0.5f;
+            Gizmos.color = c;
+            Gizmos.DrawSphere(_min.position, 0.2f);
+            Gizmos.DrawSphere(_max.position, 0.2f);
+        }
+
         public override void Encapsulate(Vector2 min, Vector2 max)
         {
             Vector2 thisMin = _min.position;

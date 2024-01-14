@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevourDev.Unity.NovelEngine.Entities;
-using UnityEngine;
 using NovelEngine.Entities;
+using NovelEngine.Tagging;
+using UnityEngine;
 
 namespace NovelEngine.UX.ItemsOnScene
 {
@@ -10,6 +11,7 @@ namespace NovelEngine.UX.ItemsOnScene
     {
         [SerializeField] private PositionManager _positionManager;
         [SerializeField] private CharacterViewModelsProvider _characterViewModelsProvider;
+        [SerializeField] private float _moveTime = 0.4f;
 
         private readonly Dictionary<Character, CharacterOnScene> _charactersOnScene = new();
 
@@ -18,12 +20,9 @@ namespace NovelEngine.UX.ItemsOnScene
         {
             if (!_charactersOnScene.TryGetValue(character, out var characterOnScene))
             {
-                characterOnScene = RentCharacterOnSceneInstance(character);
+                characterOnScene = RentCharacterOnSceneInstance(character, appearanceKey, position);
                 _charactersOnScene[character] = characterOnScene;
             }
-
-            characterOnScene.AppearanceKey = appearanceKey;
-            _positionManager.ChangePosition(characterOnScene.transform, position);
         }
 
         public void Hide(Character character)
@@ -39,7 +38,15 @@ namespace NovelEngine.UX.ItemsOnScene
             if (!_charactersOnScene.TryGetValue(character, out var characterOnScene))
                 return;
 
-            characterOnScene.AppearanceKey = appearanceKey;
+            characterOnScene.ChangeAppearance(appearanceKey);
+        }
+
+        public void ChangeAppearance(Character character, IReadOnlyList<TagSO> tags, QueryMode mode)
+        {
+            if (!_charactersOnScene.TryGetValue(character, out var characterOnScene))
+                return;
+
+            characterOnScene.ChangeAppearance(tags, mode);
         }
 
         public void ChangePosition(Character character, float position)
@@ -65,10 +72,10 @@ namespace NovelEngine.UX.ItemsOnScene
             throw new System.NotImplementedException();
         }
 
-        private CharacterOnScene RentCharacterOnSceneInstance(Character character)
+        private CharacterOnScene RentCharacterOnSceneInstance(Character character, AppearanceKey appearanceKey, float position)
         {
             var instance = _characterViewModelsProvider.RentInstance(character);
-            instance.Init(character, null);
+            instance.Init(character, _positionManager, position, _moveTime, appearanceKey);
             return instance;
         }
 

@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace DevourDev.Unity.Utility.Serialization
 {
+
     [System.Serializable]
     public sealed class SerializedDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, TValue>
     {
@@ -14,6 +15,12 @@ namespace DevourDev.Unity.Utility.Serialization
         {
             [SerializeField] private TKey _key;
             [SerializeField] private TValue _value;
+
+            public Bucket(TKey key, TValue value)
+            {
+                _key = key;
+                _value = value;
+            }
 
 
             internal readonly void RegisterToDictionary(IDictionary<TKey, TValue> dict)

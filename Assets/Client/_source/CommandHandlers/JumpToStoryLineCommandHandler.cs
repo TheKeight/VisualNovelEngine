@@ -1,5 +1,6 @@
 ﻿using DevourDev.Unity.NovelEngine.Commands;
 using DevourDev.Unity.NovelEngine.Core;
+using DevourDev.Unity.NovelEngine.Entities;
 using UnityEngine;
 
 namespace NovelEngine.CommandHandlers
@@ -9,9 +10,14 @@ namespace NovelEngine.CommandHandlers
         [SerializeField] private NovelControllerComponent _novelController;
 
 
+        public void Jump(StoryLine storyLine, int startIndex = 0)
+        {
+            _novelController.SetStoryLine(storyLine, startIndex);
+        }
+
         public override void Handle(JumpToStoryLineCommand command)
         {
-            _novelController.SetStoryLine(command.Destination, 0);
+            Jump(command.Destination, 0);
         }
     }
 }

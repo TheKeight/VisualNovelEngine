@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace NovelEngine.Utility
 {
+
     [System.Serializable]
     public sealed class GameObjectsProvider<TKey, TValue> : IGameObjectsProvider<TKey, TValue>
         where TValue : UnityEngine.Object

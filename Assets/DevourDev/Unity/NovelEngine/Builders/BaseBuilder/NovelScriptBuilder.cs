@@ -10,13 +10,24 @@ using DevourDev.Unity.NovelEngine.Commands.Variables.Interfaces;
 using DevourDev.Unity.NovelEngine.Entities;
 using DevourDev.Unity.NovelEngine.Entities.Interfaces;
 using NovelEngine.Commands;
+using NovelEngine.Commands.MiniGames;
 using NovelEngine.Entities;
 using NovelEngine.Entities.Interface;
 using UnityEngine.Assertions;
 
 namespace DevourDev.Unity.NovelEngine.Builders.BaseBuilder
 {
-    public sealed class NovelScriptBuilder : INovelScriptBuilder
+    public sealed partial class NovelScriptBuilder
+    {
+        public void StartNsfwMiniGame(string bDestinationLabelName)
+        {
+            EnsureCurrentStoryLineExists();
+            var cmd = StartNsfwMiniGameCommand.Create(GetStoryLine(bDestinationLabelName));
+            AddCommand(cmd);
+        }
+    }
+
+    public sealed partial class NovelScriptBuilder : INovelScriptBuilder
     {
         private sealed class AutoBranchBuilder
         {

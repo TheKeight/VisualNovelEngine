@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68597fc33bf39184f971b3bab8e3660d, type: 3}
+  m_Name: Hot Chests Novel Script
+  m_EditorClassIdentifier: 
+  _mc: {fileID: 0}
+  _sonya: {fileID: 0}
+  _holdingTreasureMapAppKey: {fileID: 0}
+  _smilingAppKey: {fileID: 0}
+  _thinkingAppKey: {fileID: 0}
+  _lookingAtTheMapAppKey: {fileID: 0}
+  _neutralFaceAppKey: {fileID: 0}
+  _vahuiAppKey: {fileID: 0}
+  _idkLolAppKey: {fileID: 0}
+  _superHappyAppKey: {fileID: 0}
+  _huhStarringAppKey: {fileID: 0}
+  _upsetAppKey: {fileID: 0}
+  _noodlesOnEarsAppKey: {fileID: 0}
+  _superGoodEndingVar: {fileID: 0}
+  _decidedToForgetVar: {fileID: 0}
+  _secretWeaponUsedVar: {fileID: 0}
+  _femaleLaughter: {fileID: 0}
+  _stepsSoundLoop: {fileID: 0}
+  _rainSoundLoop: {fileID: 0}
+  _campfireSoundLoop: {fileID: 0}
+  _cityBGM: {fileID: 0}
+  _blackScreenBG: {fileID: 0}
+  _officeBG: {fileID: 0}
+  _officeNoiseBG: {fileID: 0}
+  _hotChests200BG: {fileID: 0}
+  _street1BG: {fileID: 0}
+  _street2BG: {fileID: 0}
+  _breadForPoorsBG: {fileID: 0}
+  _sonyaAndMcHuggingBG: {fileID: 0}
+  _sonyaAndMcHugging2BG: {fileID: 0}
+  _cursedOldHouseBG: {fileID: 0}
+  _cursedOldHouseRainBG: {fileID: 0}
+  _insideCursedOldHouseBG: {fileID: 0}
+  _campfireInsideCursedOldHouseBG: {fileID: 0}

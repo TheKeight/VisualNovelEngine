@@ -8,19 +8,19 @@ namespace NovelEngine.UX.ItemsOnScene
         [SerializeField] private Transform _maxPoint;
         [SerializeField] private float _zPosition = 0f;
 
-        public override void ChangePosition(Transform tr, float position)
+        public override Vector3 GetWorldPosition(float oneDPosition)
         {
             Vector3 min = _minPoint.position;
             Vector3 max = _maxPoint.position;
 
             Vector3 pos = new Vector3
             {
-                x = Mathf.Lerp(min.x, max.x, position),
-                y = Mathf.Lerp(min.y, max.y, position),
+                x = Mathf.Lerp(min.x, max.x, oneDPosition),
+                y = Mathf.Lerp(min.y, max.y, oneDPosition),
                 z = _zPosition
             };
 
-            tr.position = pos;
+            return pos;
         }
     }
 }
