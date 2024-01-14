@@ -342,7 +342,7 @@ namespace NovelEngine.HotChests200.NovelScripting
 
             #region ThereAreNoMonstersOnEarth
             builder.BeginLabel(ThereAreNoMonstersOnEarthLabel);
-            MCThink(builder, "Чудовищ нет на земле.");
+            MCSay(builder, "Чудовищ нет на земле.");
             ChangeAppearanceNotNoodlesNotMap(builder, _sonya, IDunnoLol);
             builder.Say(_sonya, "А приведений?");
             ChangeAppearanceNotNoodlesNotMap(builder, _sonya, Smile);
@@ -411,6 +411,7 @@ namespace NovelEngine.HotChests200.NovelScripting
             builder.EndSelectorVariant(ElevatorArsonistLabel);
             builder.BeginSelectorVariant("Я фокусник");
             builder.EndSelectorVariant(MagicianLabel);
+            builder.EndSelector();
             builder.EndLabel();
 
             builder.BeginLabel(MagicianLabel);

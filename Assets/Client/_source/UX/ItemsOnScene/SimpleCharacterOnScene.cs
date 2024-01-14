@@ -50,7 +50,7 @@ namespace NovelEngine.UX.ItemsOnScene
             _position = position;
             ChangeAppearance(0, 0, 0, 1, moveTime, queryMode, tags, blackListTags);
             var targetPos = _positionManager.GetWorldPosition(position);
-            var fromPos = targetPos - _enterPosDelta;
+            var fromPos = targetPos + _enterPosDelta;
             transform.position = fromPos;
             ChangePosition(fromPos, targetPos, moveTime);
         }
