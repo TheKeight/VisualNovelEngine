@@ -11,7 +11,7 @@ namespace NovelEngine.CommandHandlers
 
         public override void Handle(ChangeAppearanceWithTagsCommand command)
         {
-            _charactersOnSceneManager.ChangeAppearance(command.Character, command.Tags, command.Mode);
+            _charactersOnSceneManager.ChangeAppearance(command.Character, command.QueryMode, command.Tags, command.BlackListTags);
         }
     }
 }

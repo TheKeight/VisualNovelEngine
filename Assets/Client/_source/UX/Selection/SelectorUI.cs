@@ -8,6 +8,7 @@ namespace NovelEngine.CommandHandlers.UX.Selection
 {
     internal sealed class SelectorUI : MonoBehaviour
     {
+        [SerializeField] private GameObject _dialogueUI;
         [SerializeField] private GameObject _uiParent;
         [SerializeField] private TMP_Text _title;
         [SerializeField] private SelectorVariantUI _selectorSlotPrefab;
@@ -33,6 +34,7 @@ namespace NovelEngine.CommandHandlers.UX.Selection
                 slot.Init(this, i, variant.Title);
             }
 
+            _dialogueUI.SetActive(false);
             _uiParent.SetActive(true);
         }
 
@@ -48,6 +50,7 @@ namespace NovelEngine.CommandHandlers.UX.Selection
         private void ClearUI()
         {
             _uiParent.SetActive(false);
+            _dialogueUI.SetActive(true);
             _title.text = string.Empty;
 
             foreach (var slot in _slots)

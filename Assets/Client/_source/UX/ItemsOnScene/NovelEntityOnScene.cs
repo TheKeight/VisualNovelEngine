@@ -16,8 +16,14 @@ namespace NovelEngine.UX.ItemsOnScene
             PositionManager positionManager, float position,
             float moveTime, AppearanceKey appearanceKey);
 
+        public abstract void Init(TEntityReference reference,
+            PositionManager positionManager, float position,
+            float moveTime, QueryMode queryMode, IReadOnlyList<TagSO> tags,
+            IReadOnlyList<TagSO> blackListTags);
+
+
         public abstract void ChangeAppearance(AppearanceKey appearanceKey);
-        public abstract void ChangeAppearance(IReadOnlyList<TagSO> tags, QueryMode mode);
+        public abstract void ChangeAppearance(QueryMode mode, IReadOnlyList<TagSO> tags, IReadOnlyList<TagSO> blackListTags);
 
         public abstract void ChangePosition(float targetPosition, float time);
     }

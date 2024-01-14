@@ -35,7 +35,10 @@ namespace DevourDev.Unity.Utility.Serialization
 
         public IEnumerator<T> GetEnumerator()
         {
-            return (IEnumerator<T>)_items.GetEnumerator();
+            foreach (T item in _items)
+            {
+                yield return item;
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()

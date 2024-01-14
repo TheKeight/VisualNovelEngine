@@ -1,19 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DevourDev.Unity.Utility.Serialization;
 using UnityEngine;
 
 namespace NovelEngine.Tagging
 {
-    //TODO: избавиться от TaggedItem<T> (просто заполняешь матрицу - и всё),
-    // но нужен поиск по T (а зачем?)
-    public abstract class TaggedItemsMatrix<T, TItem> : ScriptableObject
+    public abstract class TaggedItemsMatrix<T> : ScriptableObject
     {
-        [SerializeField] private SerializedDictionary<TagSO, SerializedHashSet<TItem>> _collection;
+        [SerializeField] private SerializedDictionary<TagSO, SerializedHashSet<T>> _collection;
 
-        private HashSet<TItem> _buffer;
+        private HashSet<T> _buffer;
 
 
-        private HashSet<TItem> Buffer
+        private HashSet<T> Buffer
         {
             get
             {
@@ -24,26 +23,26 @@ namespace NovelEngine.Tagging
         }
 
 
-        public int Query(ICollection<TItem> buffer, IReadOnlyList<TagSO> tags, QueryMode mode)
+        public int Query(ICollection<T> buffer, QueryMode mode, IReadOnlyList<TagSO> includeTags, IReadOnlyList<TagSO> excludeTags)
         {
             return mode switch
             {
-                QueryMode.Any => QueryRequireAny(buffer, tags),
-                QueryMode.All => QueryRequireAll(buffer, tags),
+                QueryMode.Any => QueryRequireAny(buffer, includeTags, excludeTags),
+                QueryMode.All => QueryRequireAll(buffer, includeTags, excludeTags),
                 _ => throw new System.NotImplementedException(),
             };
         }
 
 
-        public int QueryRequireAny(ICollection<TItem> buffer, params TagSO[] tags)
-            => QueryRequireAny(buffer, (IReadOnlyList<TagSO>)tags);
+        public int QueryRequireAny(ICollection<T> buffer, params TagSO[] tags)
+            => QueryRequireAny(buffer, (IReadOnlyList<TagSO>)tags, null);
 
-        public int QueryRequireAny(ICollection<TItem> buffer, IReadOnlyList<TagSO> tags)
+        public int QueryRequireAny(ICollection<T> buffer, IReadOnlyList<TagSO> includeTags, IReadOnlyList<TagSO> excludeTags)
         {
-            if (tags == null)
+            if (includeTags == null)
                 return 0;
 
-            int tagsCount = tags.Count;
+            int tagsCount = includeTags.Count;
 
             if (tagsCount == 0)
                 return 0;
@@ -52,7 +51,7 @@ namespace NovelEngine.Tagging
 
             for (int i = 0; i < tagsCount; i++)
             {
-                var tag = tags[i];
+                var tag = includeTags[i];
 
                 if (!_collection.TryGetValue(tag, out var items))
                     continue;
@@ -70,22 +69,22 @@ namespace NovelEngine.Tagging
             return count;
         }
 
-        public int QueryRequireAll(ICollection<TItem> buffer, params TagSO[] requiredTags)
-            => QueryRequireAll(buffer, (IReadOnlyList<TagSO>)requiredTags);
+        public int QueryRequireAll(ICollection<T> buffer, params TagSO[] requiredTags)
+            => QueryRequireAll(buffer, (IReadOnlyList<TagSO>)requiredTags, null);
 
-        public int QueryRequireAll(ICollection<TItem> buffer, IReadOnlyList<TagSO> requiredTags)
+        public int QueryRequireAll(ICollection<T> buffer, IReadOnlyList<TagSO> includeTags, IReadOnlyList<TagSO> excludeTags)
         {
-            if (requiredTags == null)
+            if (includeTags == null)
                 return 0;
 
-            int tagsCount = requiredTags.Count;
+            int tagsCount = includeTags.Count;
 
             if (tagsCount == 0)
                 return 0;
 
             var hs = Buffer;
 
-            if (!_collection.TryGetValue(requiredTags[0], out var firstCollection))
+            if (!_collection.TryGetValue(includeTags[0], out var firstCollection))
             {
                 return 0;
             }
@@ -97,7 +96,7 @@ namespace NovelEngine.Tagging
 
             for (int i = 1; i < tagsCount; i++)
             {
-                if (!_collection.TryGetValue(requiredTags[i], out var nextCollection))
+                if (!_collection.TryGetValue(includeTags[i], out var nextCollection))
                     return 0;
 
                 hs.IntersectWith(nextCollection);
@@ -110,11 +109,33 @@ namespace NovelEngine.Tagging
 
             foreach (var item in hs)
             {
+                if(ContainsBlackListedTags(item, excludeTags))
+                {
+                    --count;
+                    continue;
+                }
+
                 buffer.Add(item);
             }
 
             hs.Clear();
             return count;
+        }
+
+        private bool ContainsBlackListedTags(T item, IReadOnlyList<TagSO> excludeTags)
+        {
+            foreach (var exTag in excludeTags)
+            {
+                if (_collection.TryGetValue(exTag, out var collection))
+                {
+                    if (collection.Contains(item))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }

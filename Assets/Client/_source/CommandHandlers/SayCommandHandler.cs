@@ -11,7 +11,14 @@ namespace NovelEngine.CommandHandlers
 
         public override void Handle(SayCommand command)
         {
-            _dialogueManager.Say(command.Character, command.Speech);
+            if (!string.IsNullOrEmpty(command.SpeakerNameOverride))
+            {
+                _dialogueManager.Say(command.SpeakerNameOverride, command.Speech);
+            }
+            else
+            {
+                _dialogueManager.Say(command.Character, command.Speech);
+            }
         }
     }
 }

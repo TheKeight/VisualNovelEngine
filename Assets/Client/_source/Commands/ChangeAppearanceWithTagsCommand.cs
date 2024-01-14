@@ -11,21 +11,24 @@ namespace NovelEngine.Commands
     {
         [SerializeField] private Character _character;
         [SerializeField] private TagSO[] _tags;
+        [SerializeField] private TagSO[] _blackListTags;
         [SerializeField] private QueryMode _mode;
 
 
         public Character Character => _character;
         public IReadOnlyList<TagSO> Tags => _tags;
-        public QueryMode Mode => _mode;
+        public IReadOnlyList<TagSO> BlackListTags => _blackListTags;
+        public QueryMode QueryMode => _mode;
 
 
         public static ChangeAppearanceWithTagsCommand Create(Character character,
-            IEnumerable<TagSO> tags, QueryMode mode)
+            QueryMode queryMode, IEnumerable<TagSO> tags, IEnumerable<TagSO> blackListTags)
         {
             var inst = CreateInstance<ChangeAppearanceWithTagsCommand>();
             inst._character = character;
             inst._tags = tags.ToArray();
-            inst._mode = mode;
+            inst._blackListTags = blackListTags?.ToArray();
+            inst._mode = queryMode;
             return inst;
         }
     }

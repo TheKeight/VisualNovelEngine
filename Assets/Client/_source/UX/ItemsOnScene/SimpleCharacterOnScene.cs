@@ -34,7 +34,21 @@ namespace NovelEngine.UX.ItemsOnScene
         {
             _reference = reference;
             _positionManager = positionManager;
-            ChangeAppearance(appearanceKey);
+            _position = position;
+            ChangeAppearance(0, 0, 0, 1, moveTime, appearanceKey);
+            var targetPos = _positionManager.GetWorldPosition(position);
+            var fromPos = targetPos + _enterPosDelta;
+            transform.position = fromPos;
+            ChangePosition(fromPos, targetPos, moveTime);
+        }
+
+        public override void Init(Character reference, PositionManager positionManager,
+            float position, float moveTime, QueryMode queryMode, IReadOnlyList<TagSO> tags, IReadOnlyList<TagSO> blackListTags)
+        {
+            _reference = reference;
+            _positionManager = positionManager;
+            _position = position;
+            ChangeAppearance(0, 0, 0, 1, moveTime, queryMode, tags, blackListTags);
             var targetPos = _positionManager.GetWorldPosition(position);
             var fromPos = targetPos - _enterPosDelta;
             transform.position = fromPos;
@@ -47,9 +61,25 @@ namespace NovelEngine.UX.ItemsOnScene
             ChangeSprite(_appearancesProvider.GetSprite(_reference, _appearanceKey));
         }
 
-        public override void ChangeAppearance(IReadOnlyList<TagSO> tags, QueryMode mode)
+        public void ChangeAppearance(float a1From, float a1To,
+            float a2From, float a2To, float time,
+            QueryMode queryMode, IReadOnlyList<TagSO> tags, IReadOnlyList<TagSO> blackListTags)
         {
-            ChangeAppearance(_appearancesProvider.QueryAppearance(_reference, tags, mode));
+            _appearanceKey = _appearancesProvider.QueryAppearance(_reference, queryMode, tags, blackListTags);
+            ChangeSprite(a1From, a1To, a2From, a2To, time, _appearancesProvider.GetSprite(_reference, _appearanceKey));
+        }
+
+        public void ChangeAppearance(float a1From, float a1To,
+            float a2From, float a2To, float time,
+            AppearanceKey appearanceKey)
+        {
+            _appearanceKey = appearanceKey;
+            ChangeSprite(a1From, a1To, a2From, a2To, time, _appearancesProvider.GetSprite(_reference, _appearanceKey));
+        }
+
+        public override void ChangeAppearance(QueryMode mode, IReadOnlyList<TagSO> tags, IReadOnlyList<TagSO> blackListTags)
+        {
+            ChangeAppearance(_appearancesProvider.QueryAppearance(_reference, mode, tags, blackListTags));
         }
 
         public override void ChangePosition(float targetPosition, float time)
@@ -119,7 +149,22 @@ namespace NovelEngine.UX.ItemsOnScene
                 _changingSpriteRoutine = null;
             }
 
-            var enumerator = GetChangeSpriteRoutine(newSprite);
+            var enumerator = GetChangeSpriteRoutine(1, 0, 0, 1, _fadeTime, newSprite);
+            _changingSpriteRoutine = StartCoroutine(enumerator);
+        }
+
+        private void ChangeSprite(float a1From, float a1To,
+            float a2From, float a2To,
+            float time,
+            Sprite sprite)
+        {
+            if (_changingSpriteRoutine != null)
+            {
+                StopCoroutine(_changingSpriteRoutine);
+                _changingSpriteRoutine = null;
+            }
+
+            var enumerator = GetChangeSpriteRoutine(a1From, a1To, a2From, a2To, time, sprite);
             _changingSpriteRoutine = StartCoroutine(enumerator);
         }
 
@@ -147,30 +192,33 @@ namespace NovelEngine.UX.ItemsOnScene
             transform.position = _positionManager.GetWorldPosition(targetPosition);
         }
 
-        private IEnumerator GetChangeSpriteRoutine(Sprite sprite)
+        private IEnumerator GetChangeSpriteRoutine(float a1From, float a1To,
+            float a2From, float a2To,
+            float time,
+            Sprite sprite)
         {
             var color1 = _sr1.color;
             var color2 = _sr2.color;
-            color1.a = 1f;
-            color2.a = 0f;
+            color1.a = a1From;
+            color2.a = a2From;
             _sr1.color = color1;
             _sr2.color = color2;
             _sr2.sprite = sprite;
 
-            for (float timeLeft = _fadeTime; (timeLeft -= Time.deltaTime) > 0;)
+            for (float timeLeft = time; (timeLeft -= Time.deltaTime) > 0;)
             {
-                float t = 1f - timeLeft / _fadeTime;
+                float t = 1f - timeLeft / time;
 
-                color1.a = t;
-                color2.a = 1f - t;
+                color1.a = Mathf.Lerp(a1From, a1To, t);
+                color2.a = Mathf.Lerp(a2From, a2To, t);
                 _sr1.color = color1;
                 _sr2.color = color2;
 
                 yield return null;
             }
 
-            color1.a = 0f;
-            color2.a = 1f;
+            color1.a = a1To;
+            color2.a = a2To;
             _sr1.color = color1;
             _sr2.color = color2;
 

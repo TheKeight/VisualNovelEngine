@@ -11,7 +11,14 @@ namespace NovelEngine.CommandHandlers
 
         public override void Handle(ThinkCommand command)
         {
-            _dialogueManager.Think(command.Character, command.Thought);
+            if (!string.IsNullOrEmpty(command.NameOverride))
+            {
+                _dialogueManager.Think(command.NameOverride, command.Thought);
+            }
+            else
+            {
+                _dialogueManager.Think(command.Character, command.Thought);
+            }
         }
     }
 }

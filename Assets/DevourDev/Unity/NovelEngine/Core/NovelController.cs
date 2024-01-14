@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define LOG_REASONS
+using System;
 using System.Collections.Generic;
 using DevourDev.CommandSystem.Interfaces;
 using DevourDev.Unity.NovelEngine.Entities.Interfaces;
@@ -9,7 +10,7 @@ namespace DevourDev.Unity.NovelEngine.Core
     {
         private readonly ICommandsManager _commandsManager;
         private readonly IReadOnlyDictionary<System.Type, bool> _stoppingCommands;
-        private readonly IReadOnlyDictionary<System.Type, bool> _blockingCommands;
+        //private readonly IReadOnlyDictionary<System.Type, bool> _blockingCommands;
 
         private IStoryLine _storyLine;
         private ICommand _lastExecutedCommand;
@@ -23,7 +24,7 @@ namespace DevourDev.Unity.NovelEngine.Core
         {
             _commandsManager = commandsManager;
             _stoppingCommands = stoppingCommands;
-            _blockingCommands = blockingCommands;
+            //_blockingCommands = blockingCommands;
         }
 
 
@@ -32,23 +33,52 @@ namespace DevourDev.Unity.NovelEngine.Core
             get
             {
                 if (_inGoNextLoop)
+                {
+#if UNITY_EDITOR && LOG_REASONS
+                    UnityEngine.Debug.Log("Can NOT GoNext because of _inGoNextLoop");
+#endif
                     return false;
+                }
 
                 if (_storyLine == null)
+                {
+#if UNITY_EDITOR && LOG_REASONS
+                    UnityEngine.Debug.Log("Can NOT GoNext because of _storyLine == null");
+#endif
                     return false;
+                }
 
                 if (_storyLine.Commands == null)
+                {
+#if UNITY_EDITOR && LOG_REASONS
+                    UnityEngine.Debug.Log("Can NOT GoNext because of _storyLine.Commands == null");
+#endif
                     return false;
+                }
 
                 if (_storyLine.Commands.Count <= _nextCommandIndex)
+                {
+#if UNITY_EDITOR && LOG_REASONS
+                    UnityEngine.Debug.Log("Can NOT GoNext because of _storyLine.Commands.Count <= _nextCommandIndex");
+#endif
                     return false;
+                }
 
-                if (_lastExecutedCommand != null && _blockingCommands[_lastExecutedCommand.GetType()])
-                    return false;
+//                if (_lastExecutedCommand != null && _blockingCommands[_lastExecutedCommand.GetType()])
+//                {
+//#if UNITY_EDITOR
+//                    UnityEngine.Debug.Log("Can NOT GoNext because of _blockingCommands[_lastExecutedCommand.GetType()]");
+//#endif
+//                    return false;
+//                }
 
                 return true;
             }
         }
+
+
+        public event System.Action<ICommand> CommandExecuted;
+
 
         public void GoNext()
         {
@@ -70,6 +100,7 @@ namespace DevourDev.Unity.NovelEngine.Core
                 ++_nextCommandIndex;
                 _commandsManager.Handle(nextCmd);
                 _lastExecutedCommand = nextCmd;
+                CommandExecuted?.Invoke(nextCmd);
 
                 if (ShouldStop())
                     break;
@@ -93,16 +124,48 @@ namespace DevourDev.Unity.NovelEngine.Core
         private bool ShouldStop()
         {
             if (_storyLine == null)
+            {
+#if UNITY_EDITOR
+                UnityEngine.Debug.Log("Should stop because of _storyLine == null");
+#endif
                 return true;
+            }
 
             if (_storyLine.Commands == null)
+            {
+#if UNITY_EDITOR
+                UnityEngine.Debug.Log("Should stop because of _storyLine.Commands == null");
+#endif
                 return true;
+            }
 
             if (_storyLine.Commands.Count <= _nextCommandIndex)
+            {
+#if UNITY_EDITOR
+                UnityEngine.Debug.Log("Should stop because of _storyLine.Commands.Count <= _nextCommandIndex");
+#endif
                 return true;
+            }
 
             var type = _lastExecutedCommand.GetType();
-            return _stoppingCommands[type] || _blockingCommands[type];
+
+            if (_stoppingCommands[type])
+            {
+#if UNITY_EDITOR
+                UnityEngine.Debug.Log("Should stop because of _stoppingCommands[type]");
+#endif
+                return true;
+            }
+
+//            if (_blockingCommands[type])
+//            {
+//#if UNITY_EDITOR
+//                UnityEngine.Debug.Log("Should stop because of _blockingCommands[type]");
+//#endif
+//                return true;
+//            }
+
+            return false;
         }
     }
 }

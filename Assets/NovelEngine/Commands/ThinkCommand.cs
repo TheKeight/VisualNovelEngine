@@ -9,6 +9,7 @@ namespace NovelEngine.Commands
     public sealed class ThinkCommand : NovelCommand
     {
         [field: SerializeField] public Character Character { get; private set; }
+        [field: SerializeField] public string NameOverride { get; private set; }
         [field: SerializeField] public string Thought { get; private set; }
 
 
@@ -16,6 +17,14 @@ namespace NovelEngine.Commands
         {
             var inst = CreateInstance<ThinkCommand>();
             inst.Character = character;
+            inst.Thought = thought;
+            return inst;
+        }
+
+        public static ThinkCommand Create(string nameOverride, string thought)
+        {
+            var inst = CreateInstance<ThinkCommand>();
+            inst.NameOverride = nameOverride;
             inst.Thought = thought;
             return inst;
         }

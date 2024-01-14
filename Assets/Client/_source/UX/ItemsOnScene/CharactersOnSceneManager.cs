@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DevourDev.Unity.NovelEngine.Entities;
 using NovelEngine.Entities;
 using NovelEngine.Tagging;
@@ -25,10 +24,21 @@ namespace NovelEngine.UX.ItemsOnScene
             }
         }
 
+        public void Show(Character character, float position, QueryMode queryMode, IReadOnlyList<TagSO> tags, IReadOnlyList<TagSO> blackListTags)
+        {
+            if (!_charactersOnScene.TryGetValue(character, out var characterOnScene))
+            {
+                characterOnScene = RentCharacterOnSceneInstance(character, position, queryMode, tags, blackListTags);
+                _charactersOnScene[character] = characterOnScene;
+            }
+        }
+
         public void Hide(Character character)
         {
             if (!_charactersOnScene.TryGetValue(character, out var characterOnScene))
                 return;
+
+            _charactersOnScene.Remove(character);
 
             ReturnCharacterOnSceneInstance(characterOnScene);
         }
@@ -41,12 +51,13 @@ namespace NovelEngine.UX.ItemsOnScene
             characterOnScene.ChangeAppearance(appearanceKey);
         }
 
-        public void ChangeAppearance(Character character, IReadOnlyList<TagSO> tags, QueryMode mode)
+        public void ChangeAppearance(Character character, QueryMode mode, IReadOnlyList<TagSO> tags,
+            IReadOnlyList<TagSO> blackListTags)
         {
             if (!_charactersOnScene.TryGetValue(character, out var characterOnScene))
                 return;
 
-            characterOnScene.ChangeAppearance(tags, mode);
+            characterOnScene.ChangeAppearance(mode, tags, blackListTags);
         }
 
         public void ChangePosition(Character character, float position)
@@ -54,7 +65,7 @@ namespace NovelEngine.UX.ItemsOnScene
             if (!_charactersOnScene.TryGetValue(character, out var characterOnScene))
                 return;
 
-            throw new NotImplementedException();
+            characterOnScene.ChangePosition(position, _moveTime);
         }
 
         public void Highlight(IEnumerable<Character> characters)
@@ -76,6 +87,14 @@ namespace NovelEngine.UX.ItemsOnScene
         {
             var instance = _characterViewModelsProvider.RentInstance(character);
             instance.Init(character, _positionManager, position, _moveTime, appearanceKey);
+            return instance;
+        }
+
+        private CharacterOnScene RentCharacterOnSceneInstance(Character character, float position,
+            QueryMode queryMode, IReadOnlyList<TagSO> tags, IReadOnlyList<TagSO> blackListTags)
+        {
+            var instance = _characterViewModelsProvider.RentInstance(character);
+            instance.Init(character, _positionManager, position, _moveTime, queryMode, tags, blackListTags);
             return instance;
         }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DevourDev.Unity.NovelEngine.Commands
 {
-    [CreateAssetMenu(menuName = CommandsConstants.Commands + nameof(SayCommand))]
+    [CreateAssetMenu(menuName = CommandsConstants.Commands + nameof(EndGameCommand))]
     public sealed class EndGameCommand : NovelCommand
     {
         [SerializeField] private string _endGameMessage;
@@ -19,6 +19,4 @@ namespace DevourDev.Unity.NovelEngine.Commands
             return inst;
         }
     }
-
-
 }

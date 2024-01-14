@@ -5,6 +5,64 @@ using UnityEngine;
 
 namespace DevourDev.Unity.Utility.Serialization
 {
+    public sealed class DictionaryWithDefaultValue<TKey, TValue> : IReadOnlyDictionary<TKey, TValue>
+    {
+        private readonly Dictionary<TKey, TValue> _dict = new();
+        private readonly TValue _defaultValue;
+
+
+        public DictionaryWithDefaultValue(TValue defaultValue)
+        {
+            _defaultValue = defaultValue;
+        }
+
+
+        public int Count => ((IReadOnlyCollection<KeyValuePair<TKey, TValue>>)_dict).Count;
+
+        public TValue this[TKey key]
+        {
+            get
+            {
+                return GetValueOrDefault(key);
+            }
+            set
+            {
+                _dict[key] = value;
+            }
+        }
+
+
+        public bool ContainsKey(TKey key)
+        {
+            return true;
+        }
+
+        public bool TryGetValue(TKey key, out TValue value)
+        {
+            if (!_dict.TryGetValue(key, out value))
+                value = _defaultValue;
+
+            return true;
+        }
+
+
+        public TValue GetValueOrDefault(TKey key) => TryGetValue(key, out var v) ? v : _defaultValue;
+
+        public IEnumerable<TKey> Keys => ((IReadOnlyDictionary<TKey, TValue>)_dict).Keys;
+
+        public IEnumerable<TValue> Values => ((IReadOnlyDictionary<TKey, TValue>)_dict).Values;
+
+
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
+        {
+            return ((IEnumerable<KeyValuePair<TKey, TValue>>)_dict).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable)_dict).GetEnumerator();
+        }
+    }
     [System.Serializable]
     public sealed class TypeMap<TInput, TOutput> : IReadOnlyDictionary<System.Type, TOutput>
     {

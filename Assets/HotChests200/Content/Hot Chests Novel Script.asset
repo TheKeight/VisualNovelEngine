@@ -12,37 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68597fc33bf39184f971b3bab8e3660d, type: 3}
   m_Name: Hot Chests Novel Script
   m_EditorClassIdentifier: 
-  _mc: {fileID: 0}
-  _sonya: {fileID: 0}
-  _holdingTreasureMapAppKey: {fileID: 0}
-  _smilingAppKey: {fileID: 0}
-  _thinkingAppKey: {fileID: 0}
-  _lookingAtTheMapAppKey: {fileID: 0}
-  _neutralFaceAppKey: {fileID: 0}
-  _vahuiAppKey: {fileID: 0}
-  _idkLolAppKey: {fileID: 0}
-  _superHappyAppKey: {fileID: 0}
-  _huhStarringAppKey: {fileID: 0}
-  _upsetAppKey: {fileID: 0}
-  _noodlesOnEarsAppKey: {fileID: 0}
-  _superGoodEndingVar: {fileID: 0}
-  _decidedToForgetVar: {fileID: 0}
-  _secretWeaponUsedVar: {fileID: 0}
+  _mc: {fileID: 11400000, guid: 0f51db54184b449409cc16db17c653a2, type: 2}
+  _sonya: {fileID: 11400000, guid: 2b3098555452f8f49ae4462b6092f796, type: 2}
+  _holdingTreasureMapAppKey: {fileID: 11400000, guid: df2b7e2442089eb42a6138a15d8974b6, type: 2}
+  _lookingAtTheMapAppKey: {fileID: 11400000, guid: 7b8df1783dfdb94438dca04c804c8d9a, type: 2}
+  _superGoodEndingVar: {fileID: 11400000, guid: f02d349d0a031a54db80e4c7ddeb092d, type: 2}
+  _decidedToForgetVar: {fileID: 11400000, guid: efc5518efc37dab419847605954a9880, type: 2}
+  _secretWeaponUsedVar: {fileID: 11400000, guid: 658dc34981ac2a5458136dd176a6cd6c, type: 2}
   _femaleLaughter: {fileID: 0}
   _stepsSoundLoop: {fileID: 0}
   _rainSoundLoop: {fileID: 0}
   _campfireSoundLoop: {fileID: 0}
   _cityBGM: {fileID: 0}
-  _blackScreenBG: {fileID: 0}
-  _officeBG: {fileID: 0}
-  _officeNoiseBG: {fileID: 0}
-  _hotChests200BG: {fileID: 0}
-  _street1BG: {fileID: 0}
-  _street2BG: {fileID: 0}
-  _breadForPoorsBG: {fileID: 0}
-  _sonyaAndMcHuggingBG: {fileID: 0}
-  _sonyaAndMcHugging2BG: {fileID: 0}
-  _cursedOldHouseBG: {fileID: 0}
-  _cursedOldHouseRainBG: {fileID: 0}
-  _insideCursedOldHouseBG: {fileID: 0}
-  _campfireInsideCursedOldHouseBG: {fileID: 0}
+  _blackScreenBG: {fileID: 3809616970209451177, guid: ed322c0f25c2ca44e9212d51db741ca4, type: 3}
+  _officeBG: {fileID: 8915781346188836259, guid: b5c08ebeabf7c634eb1d8320765300d7, type: 3}
+  _officeNoiseBG: {fileID: 5784535675757799116, guid: 3e0e851a49b47364bae71d8e32dabd06, type: 3}
+  _hotChests200BG: {fileID: 8613678668518079982, guid: e24b9ce3ebea2c64aac95675f0a6c967, type: 3}
+  _street1BG: {fileID: 3809616970209451177, guid: bb8c999a7810b344c86f2702327c401d, type: 3}
+  _street2BG: {fileID: 4571790421466189185, guid: b79d490fc4cd7734d8e6d98929e8ce90, type: 3}
+  _breadForPoorsBG: {fileID: 6620177591061653935, guid: 60d55c39f9a90944497a2710623c79df, type: 3}
+  _breadForPurrsBG: {fileID: 4065336070098592193, guid: 5d6663c890504a042a96f39a9780c0ad, type: 3}
+  _sonyaAndMcHuggingBG: {fileID: 5765469112534998227, guid: d14479baaee82a443bdb05106516e42f, type: 3}
+  _cursedOldHouseBG: {fileID: 2812578068741866464, guid: 9193df4aa292a45408a5884929f4c3ef, type: 3}
+  _cursedOldHouseRainBG: {fileID: 3412625060208343963, guid: 63ae4e5a18a7c274ea2b3c5cab72902d, type: 3}
+  _guitarInsideCursedOldHouseBG: {fileID: 3255823200353452164, guid: 5cd0b11db3e78f44887169bf3a45d886, type: 3}
+  _campfireAndGuitarInsideCursedOldHouseBG: {fileID: 5683430163475455150, guid: b7ded7182d795834fb518658371b7d4b, type: 3}
+  _campfireInsideCursedOldHouseBG: {fileID: 7799875047643076008, guid: f9f71d02b3c9af24b808e116aa0b518a, type: 3}
+  _treasures: {fileID: 2812578068741866464, guid: c685da6578d92b14c962e2474e3361c8, type: 3}
+  _noodleTag: {fileID: 11400000, guid: 3458a5b21121a2a4ea8636b0a1c2500f, type: 2}
+  _mapTag: {fileID: 11400000, guid: 7bdf65133d8a4854f901cfead884ec4f, type: 2}

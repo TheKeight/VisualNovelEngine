@@ -15,10 +15,10 @@ namespace NovelEngine.UX.ItemsOnScene
         [SerializeField] private Sprite _defaultSprite;
         [SerializeField] private SerializedDictionary<Character, SerializedDictionaryWithDefaultValue<AppearanceKey, Sprite>> _dict;
 
-        private List<TaggedAppearance> _appearancesBuffer;
+        private List<AppearanceKey> _appearancesBuffer;
 
 
-        private List<TaggedAppearance> AppearancesBuffer
+        private List<AppearanceKey> AppearancesBuffer
         {
             get
             {
@@ -37,25 +37,28 @@ namespace NovelEngine.UX.ItemsOnScene
             return sprite;
         }
 
-        public AppearanceKey QueryAppearance(Character character, IReadOnlyList<TagSO> tags, QueryMode mode)
+        public AppearanceKey QueryAppearance(Character character, QueryMode mode, IReadOnlyList<TagSO> includeTags, IReadOnlyList<TagSO> excludeTags)
         {
             if (!_dict.TryGetValue(character, out var charDict))
                 return _defaultAppearance;
 
             var buffer = AppearancesBuffer;
-            _appearancesMatrix.Query(buffer, tags, mode);
+            _appearancesMatrix.Query(buffer, mode, includeTags, excludeTags);
 
             for (int i = buffer.Count - 1; i >= 0; i--)
             {
-                if (charDict.ContainsKey(buffer[i].Item))
+                if (charDict.ContainsKey(buffer[i]))
                     continue;
 
                 buffer.RemoveAt(i);
             }
 
+            if (buffer.Count == 0)
+                return _defaultAppearance;
+
             var appKey = buffer[UnityEngine.Random.Range(0, buffer.Count)];
             buffer.Clear();
-            return appKey.Item;
+            return appKey;
         }
     }
 }

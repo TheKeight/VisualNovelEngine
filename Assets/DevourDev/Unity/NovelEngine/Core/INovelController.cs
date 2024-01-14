@@ -1,4 +1,5 @@
-﻿using DevourDev.Unity.NovelEngine.Entities.Interfaces;
+﻿using DevourDev.CommandSystem.Interfaces;
+using DevourDev.Unity.NovelEngine.Entities.Interfaces;
 
 namespace DevourDev.Unity.NovelEngine.Core
 {
@@ -6,6 +7,7 @@ namespace DevourDev.Unity.NovelEngine.Core
     {
         bool CanGoNext { get; }
 
+        event System.Action<ICommand> CommandExecuted;
 
         void GoNext();
         void SetStoryLine(IStoryLine storyLine, int startIndex);

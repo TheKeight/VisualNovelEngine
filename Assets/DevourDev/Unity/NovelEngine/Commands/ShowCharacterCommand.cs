@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace DevourDev.Unity.NovelEngine.Commands
 {
+
     [CreateAssetMenu(menuName = CommandsConstants.Commands + nameof(ShowCharacterCommand))]
     public sealed class ShowCharacterCommand : NovelCommand
     {

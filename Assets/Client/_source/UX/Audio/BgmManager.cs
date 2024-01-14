@@ -47,6 +47,9 @@ namespace NovelEngine.UX.Audio
 
         public void Play()
         {
+            if (_playlist == null)
+                return;
+
             _bgmSource.clip = _clips[_playlistIndex];
             _bgmSource.Play();
         }

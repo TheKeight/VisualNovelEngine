@@ -13,6 +13,7 @@ using NovelEngine.Commands;
 using NovelEngine.Commands.MiniGames;
 using NovelEngine.Entities;
 using NovelEngine.Entities.Interface;
+using NovelEngine.Tagging;
 using UnityEngine.Assertions;
 
 namespace DevourDev.Unity.NovelEngine.Builders.BaseBuilder
@@ -202,17 +203,24 @@ namespace DevourDev.Unity.NovelEngine.Builders.BaseBuilder
         public void Say(Character speaker, string characterNameOverride, string speech)
         {
             EnsureCurrentStoryLineExists();
-            var cmd = SayCommand.Create(speaker, speech);
+            var cmd = SayCommand.Create(characterNameOverride, speech);
             AddCommand(cmd);
         }
 
 
-        public void Think(string thought) => Think(null, thought);
+        public void Think(string thought) => Think(null, " ", thought);
 
         public void Think(Character character, string thought)
         {
             EnsureCurrentStoryLineExists();
             var cmd = ThinkCommand.Create(character, thought);
+            AddCommand(cmd);
+        }
+
+        public void Think(Character character, string nameOverride, string thought)
+        {
+            EnsureCurrentStoryLineExists();
+            var cmd = ThinkCommand.Create(nameOverride, thought);
             AddCommand(cmd);
         }
 
@@ -237,6 +245,17 @@ namespace DevourDev.Unity.NovelEngine.Builders.BaseBuilder
             AddCommand(cmd);
         }
 
+        public void ChangeAppearance(Character character, params TagSO[] tags) => ChangeAppearance(character, QueryMode.Any, tags);
+        public void ChangeAppearance(Character character, QueryMode queryMode, params TagSO[] tags)
+            => ChangeAppearance(character, queryMode, (IEnumerable<TagSO>)tags, null);
+
+        public void ChangeAppearance(Character character, QueryMode queryMode, IEnumerable<TagSO> tags, IEnumerable<TagSO> blackListTags)
+        {
+            EnsureCurrentStoryLineExists();
+            var cmd = ChangeAppearanceWithTagsCommand.Create(character, queryMode, tags, blackListTags);
+            AddCommand(cmd);
+        }
+
         public void Move(Character character, float position)
         {
             EnsureCurrentStoryLineExists();
@@ -251,6 +270,18 @@ namespace DevourDev.Unity.NovelEngine.Builders.BaseBuilder
             AddCommand(cmd);
         }
 
+        public void Show(Character character, float position, params TagSO[] tags)
+            => Show(character, position, QueryMode.All, tags);
+
+        public void Show(Character character, float position, QueryMode queryMode, params TagSO[] tags)
+            => Show(character, position, queryMode, tags, null);
+
+        public void Show(Character character, float position, QueryMode queryMode, IEnumerable<TagSO> tags, IEnumerable<TagSO> blackListTags)
+        {
+            EnsureCurrentStoryLineExists();
+            var cmd = ShowCharacterWithTagsCommand.Create(character, position, queryMode, (IEnumerable<TagSO>)tags, blackListTags);
+            AddCommand(cmd);
+        }
         public void Show(Character character, float position, AppearanceKey appearanceKey = null)
         {
             EnsureCurrentStoryLineExists();
@@ -330,7 +361,7 @@ namespace DevourDev.Unity.NovelEngine.Builders.BaseBuilder
             AddCommand(cmd);
             _autoBranchBuilder.Clear();
         }
-        
+
         public void ChangeVariable(Character character, NovelVariable<int> variable, MathOperation operation, int value)
         {
             EnsureCurrentStoryLineExists();

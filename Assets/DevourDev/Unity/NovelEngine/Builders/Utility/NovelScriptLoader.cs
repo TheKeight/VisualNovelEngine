@@ -14,6 +14,7 @@ namespace DevourDev.Unity.NovelEngine.Builders.Utility
         {
             var data = _novelScript.Build();
             _novelController.SetStoryLine(data.StoryLines[data.StartStoryLineIndex], 0);
+            _novelController.GoNext();
         }
     }
 }

@@ -10,6 +10,9 @@ namespace NovelEngine.UX.Audio
 
         public void PlaySound(Sound sound)
         {
+            if (sound == null)
+                return;
+
             _sfxSource.PlayOneShot(sound.Clip);
         }
     }

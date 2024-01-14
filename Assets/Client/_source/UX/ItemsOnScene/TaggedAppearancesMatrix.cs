@@ -5,7 +5,7 @@ using UnityEngine;
 namespace NovelEngine.UX.ItemsOnScene
 {
     [CreateAssetMenu(menuName = "UX/TaggedAppearancesMatrix")]
-    public sealed class TaggedAppearancesMatrix : TaggedItemsMatrix<AppearanceKey, TaggedAppearance>
+    public sealed class TaggedAppearancesMatrix : TaggedItemsMatrix<AppearanceKey>
     {
 
     }

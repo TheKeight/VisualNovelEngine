@@ -13,5 +13,5 @@ namespace NovelEngine.CommandHandlers.CommandExecutors
         {
             _charactersOnSceneManager.Show(command.Character, command.AppearanceKey, command.Position);
         }
-    }
+    } 
 }
