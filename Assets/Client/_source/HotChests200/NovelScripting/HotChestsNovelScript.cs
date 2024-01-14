@@ -412,6 +412,18 @@ namespace NovelEngine.HotChests200.NovelScripting
             builder.BeginSelectorVariant("Я фокусник");
             builder.EndSelectorVariant(MagicianLabel);
             builder.EndLabel();
+
+            builder.BeginLabel(MagicianLabel);
+            MCSay(builder, "Смотри, что умею!");
+            MCSay(builder, "...");
+            MCSay(builder, "Вуаля!");
+            ChangeAppearanceNotNoodlesNotMap(builder, _sonya, Vahui);
+            builder.Say(_sonya, "...");
+            ChangeAppearanceNotNoodlesNotMap(builder, _sonya, Huh);
+            builder.Say(_sonya, "А что произошло?");
+            MCSay(builder, "Мы переместились назад во времени!");
+            builder.Jump(AfterMonstersLabel);
+            builder.EndLabel();
             #endregion
 
             #region ElevatorArsonist
