@@ -489,7 +489,7 @@ namespace NovelEngine.HotChests200.NovelScripting
         {
             const string Bac = "AfterCampfire_Guitar_Bac";
             const string NotBac = "AfterCampfire_Guitar_NotBac";
-            const string Sleep = "AfterCampfire_Guitar_NotBac";
+            const string Sleep = "AfterCampfire_Guitar_Sleep";
 
             builder.BeginLabel(labelName);
             builder.Delay(1f);
