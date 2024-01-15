@@ -9,6 +9,7 @@ namespace NovelEngine.CommandHandlers.CommandExecutors
     public sealed class DelayCommandHandler : CommandHandlerComponent<DelayCommand>
     {
         [SerializeField] private NovelControllerComponent _controller;
+        [SerializeField] private bool _ignore = true;
 
         private Coroutine _delayRoutine = null;
 
@@ -29,7 +30,7 @@ namespace NovelEngine.CommandHandlers.CommandExecutors
 
         private IEnumerator GetGoNextAfterRoutine(float delayTime)
         {
-            yield return new WaitForSeconds(delayTime);
+            yield return _ignore ? null : new WaitForSeconds(delayTime);
             //_controller.UnlockGoNextInput();
             _delayRoutine = null;
             _controller.GoNext();

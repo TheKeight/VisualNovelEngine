@@ -285,7 +285,7 @@ namespace NovelEngine.HotChests200.NovelScripting
             builder.ChangeVariable(_mc, _superGoodEndingVar, MathOperation.Add, 1);
             builder.Hide(_sonya);
             MCSay(builder, "Я понимаю, как это неприятно, когда у тебя не хватает даже" +
-                "самого нужного.");
+                " самого нужного.");
             builder.ChangeBG(_sonyaAndMcHuggingBG);
             MCSay(builder, "Соня, мы с тобой вместе найдём это сокровище.");
             MCSay(builder, "И оно уберёт все твои страхи.");
@@ -981,7 +981,7 @@ namespace NovelEngine.HotChests200.NovelScripting
             MCThink(builder, "Вообще-то, нет...");
             MCThink(builder, "Но, в любом случае, надо попытаться поддержать разговор, иначе" +
                 " придётся использовать секретное оружие...");
-            MCThink(builder, "Да, есть немного...");
+            MCSay(builder, "Да, есть немного...");
             ChangeAppearanceNotNoodlesNotMap(builder, _sonya, Vahui);
             builder.Say(_sonya, "В последней серии такое жесткое испытание было с машинами, скажи??");
 
@@ -1231,6 +1231,7 @@ namespace NovelEngine.HotChests200.NovelScripting
                 Value = 0
             });
             builder.EndConditionBlock(haveNotWeaponDestination);
+            builder.EndAutoBranch();
         }
 
         private void ChangeAppearanceNotNoodlesNotMap(NovelScriptBuilder builder, Character character, params TagSO[] tags)
