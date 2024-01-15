@@ -462,10 +462,9 @@ namespace NovelEngine.HotChests200.NovelScripting
             MCThink(builder, "?");
             MCThink(builder, "Серьезно?");
             MCThink(builder, "Кажется, я всё прослушал...");
-            MCSay(builder, "Сонь, ты спишь?");
             ChangeAppearanceNotNoodlesNotMap(builder, _sonya, Smile);
             builder.Say(_sonya, "Думаешь сейчас, наверно, типа \"О, нет... Я только-только встретил симпатичную" +
-                "девушку, и вот мы в проклятом старом доме... одни...\"");
+                " девушку, и вот мы в проклятом старом доме... одни...\"");
             builder.Say(_sonya, "...");
             ChangeAppearanceNotNoodlesNotMap(builder, _sonya, Sad);
             builder.Say(_sonya, "\"...а я уже умудрился пропустить мимо ушей её признание...\"");
@@ -525,7 +524,7 @@ namespace NovelEngine.HotChests200.NovelScripting
             builder.Say(_sonya, "Ихи-хи-хи-хи");
             ChangeAppearanceNotNoodlesNotMap(builder, _sonya, Smile);
             builder.Say(_sonya, "Ну, сбацай тогда-уж что-нибудь.");
-            MCSay(builder, "Да на этом [инструменте] только Зеленого Слоница бацать...");
+            MCSay(builder, "Да на этом [инструменте] только Зеленого Слоника бацать...");
             ChangeAppearanceNotNoodlesNotMap(builder, _sonya, Smile);
             builder.Say(_sonya, "Ну, его и сбацай.");
             builder.Selector("Соня хочет, чтобы я сыграл на гитаре",
@@ -668,13 +667,13 @@ namespace NovelEngine.HotChests200.NovelScripting
             ChangeAppearanceNotNoodlesNotMap(builder, _sonya, Vahui);
             builder.Say(_sonya, "Кто разряжена?");
             ChangeAppearanceNotNoodlesNotMap(builder, _sonya, Huh);
-            builder.Say(_sonya, "Аккустическая гитара?");
+            builder.Say(_sonya, "Акустическая гитара?");
             MCSay(builder, "О-о-о, не-е-ет...");
             ChangeAppearanceNotNoodlesNotMap(builder, _sonya, Huh);
             MCSay(builder, "Это новейшие и хитрейшие технологии китайского гитаростроения...");
             MCSay(builder, "А это их недавняя модель - NeeXiao2000");
             MCSay(builder, "Как видишь - струны не светятся...");
-            MCSay(builder, "Значит, у этой гитарый сел аккумулятор...");
+            MCSay(builder, "Значит, у этой гитары сел аккумулятор...");
             MCThink(builder, "...в тюрьму.");
             builder.Say(_sonya, "Да ладно? Дай-ка, я посмотрю...");
             MCThink(builder, "Ни... за... что...");
