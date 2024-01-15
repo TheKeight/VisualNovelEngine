@@ -1,5 +1,6 @@
 Windows:
-https://disk.yandex.ru/d/XHradhfM37_GSg .zip
+https://disk.yandex.ru/d/XHradhfM37_GSg .zip <- версия на момент окончания джема
+https://disk.yandex.ru/d/bfKsxtOGjKkCaQ .zip <- контент не изменен, но исправлены баги (один из которых не позволял пройти игру до конца)
 
 Движок со встроенной новеллой на джем Капелла Джем.
 
